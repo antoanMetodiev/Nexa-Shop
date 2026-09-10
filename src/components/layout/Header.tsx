@@ -5,9 +5,11 @@ import { useState } from "react";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
+import { useCart } from "@/lib/cart-context";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { totalCount } = useCart();
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy-100 bg-white/95 backdrop-blur">
@@ -69,9 +71,11 @@ export function Header() {
               className="relative rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50"
             >
               <ShoppingBag className="size-5" />
-              <span className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-navy-900 text-[10px] font-semibold text-white">
-                0
-              </span>
+              {totalCount > 0 && (
+                <span className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-navy-900 text-[10px] font-semibold text-white">
+                  {totalCount > 9 ? "9+" : totalCount}
+                </span>
+              )}
             </Link>
           </div>
         </div>

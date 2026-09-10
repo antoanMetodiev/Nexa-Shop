@@ -1,3 +1,11 @@
+export type ProductReview = {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
+};
+
 export type ProductRow = {
   id: number;
   dummy_id: number | null;
@@ -13,6 +21,13 @@ export type ProductRow = {
   thumbnail: string;
   images: string[];
   created_at: string;
+  sku: string | null;
+  tags: string[];
+  warranty_information: string | null;
+  shipping_information: string | null;
+  return_policy: string | null;
+  availability_status: string | null;
+  reviews: ProductReview[];
 };
 
 export type Database = {

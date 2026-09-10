@@ -1,5 +1,13 @@
 import { Client } from "pg";
 
+type DummyReview = {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
+};
+
 type DummyProduct = {
   id: number;
   title: string;
@@ -12,6 +20,13 @@ type DummyProduct = {
   stock: number;
   thumbnail: string;
   images: string[];
+  sku: string;
+  tags: string[];
+  warrantyInformation: string;
+  shippingInformation: string;
+  returnPolicy: string;
+  availabilityStatus: string;
+  reviews: DummyReview[];
 };
 
 function slugify(title: string, id: number): string {
@@ -54,8 +69,11 @@ async function main() {
       await client.query(
         `insert into public.products
            (dummy_id, slug, title, description, category, brand, price,
-            discount_percentage, rating, stock, thumbnail, images)
-         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            discount_percentage, rating, stock, thumbnail, images,
+            sku, tags, warranty_information, shipping_information,
+            return_policy, availability_status, reviews)
+         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,
+                 $13, $14, $15, $16, $17, $18, $19)
          on conflict (dummy_id) do update set
            slug = excluded.slug,
            title = excluded.title,
@@ -67,7 +85,14 @@ async function main() {
            rating = excluded.rating,
            stock = excluded.stock,
            thumbnail = excluded.thumbnail,
-           images = excluded.images`,
+           images = excluded.images,
+           sku = excluded.sku,
+           tags = excluded.tags,
+           warranty_information = excluded.warranty_information,
+           shipping_information = excluded.shipping_information,
+           return_policy = excluded.return_policy,
+           availability_status = excluded.availability_status,
+           reviews = excluded.reviews`,
         [
           product.id,
           slugify(product.title, product.id),
@@ -81,6 +106,13 @@ async function main() {
           product.stock,
           product.thumbnail,
           product.images,
+          product.sku ?? null,
+          product.tags ?? [],
+          product.warrantyInformation ?? null,
+          product.shippingInformation ?? null,
+          product.returnPolicy ?? null,
+          product.availabilityStatus ?? null,
+          JSON.stringify(product.reviews ?? []),
         ],
       );
     }

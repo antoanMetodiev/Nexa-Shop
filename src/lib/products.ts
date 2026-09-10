@@ -11,6 +11,10 @@ function toTitleCase(slug: string): string {
     .join(" ");
 }
 
+export function categoryDisplayName(slug: string): string {
+  return toTitleCase(slug);
+}
+
 export async function getTopRatedProducts(limit = 8): Promise<Product[]> {
   const { data, error } = await supabase
     .from("products")
@@ -188,6 +192,40 @@ export async function getProducts(
   }
 
   return { products: data, total: count ?? 0 };
+}
+
+export async function getProductById(id: number): Promise<Product | null> {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error || !data) {
+    if (error) console.error("getProductById failed:", error.message);
+    return null;
+  }
+  return data;
+}
+
+export async function getRelatedProducts(
+  category: string,
+  excludeId: number,
+  limit = 4,
+): Promise<Product[]> {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("category", category)
+    .neq("id", excludeId)
+    .order("rating", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) {
+    console.error("getRelatedProducts failed:", error?.message);
+    return [];
+  }
+  return data;
 }
 
 export function formatPrice(price: number): string {
