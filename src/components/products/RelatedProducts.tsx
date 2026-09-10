@@ -13,7 +13,10 @@ export function RelatedProducts({ products }: { products: Product[] }) {
       <h2 className="mb-5 text-xl font-bold tracking-tight text-navy-950">
         {t("relatedHeading")}
       </h2>
-      <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <StaggerGrid
+        key={products.map((product) => product.id).join(",")}
+        className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+      >
         {products.map((product) => (
           <StaggerItem key={product.id}>
             <ProductCard product={product} />
