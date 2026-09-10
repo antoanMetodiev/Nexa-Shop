@@ -1,6 +1,7 @@
 import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 
 /**
  * Admin access is granted via Clerk's publicMetadata.role === "admin",
@@ -15,7 +16,7 @@ export async function requireAdminPage(locale: string): Promise<string> {
     ?.role;
 
   if (!userId || role !== "admin") {
-    redirect({ href: "/", locale });
+    redirect({ href: "/", locale: locale as Locale });
   }
   return userId as string;
 }
