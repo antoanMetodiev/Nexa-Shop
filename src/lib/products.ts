@@ -76,6 +76,18 @@ export async function getCategoriesWithCounts(): Promise<CategoryCount[]> {
     .map(([slug, count]) => ({ slug, name: toTitleCase(slug), count }));
 }
 
+export async function getProductsCount(): Promise<number> {
+  const { count, error } = await supabase
+    .from("products")
+    .select("*", { count: "exact", head: true });
+
+  if (error) {
+    console.error("getProductsCount failed:", error.message);
+    return 0;
+  }
+  return count ?? 0;
+}
+
 export async function getBrandsWithCounts(): Promise<BrandCount[]> {
   const { data, error } = await supabase
     .from("products")
@@ -188,6 +200,26 @@ export async function getProducts(
 
   if (error || !data) {
     console.error("getProducts failed:", error?.message);
+    return { products: [], total: 0 };
+  }
+
+  return { products: data, total: count ?? 0 };
+}
+
+export async function getDealsProducts(page = 1): Promise<ProductsResult> {
+  const pageIndex = page > 0 ? page : 1;
+  const from = (pageIndex - 1) * PRODUCTS_PAGE_SIZE;
+  const to = from + PRODUCTS_PAGE_SIZE - 1;
+
+  const { data, error, count } = await supabase
+    .from("products")
+    .select("*", { count: "exact" })
+    .gt("discount_percentage", 1)
+    .order("discount_percentage", { ascending: false })
+    .range(from, to);
+
+  if (error || !data) {
+    console.error("getDealsProducts failed:", error?.message);
     return { products: [], total: 0 };
   }
 

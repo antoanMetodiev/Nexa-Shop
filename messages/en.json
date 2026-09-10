@@ -206,6 +206,70 @@
     "womens-shoes": "Womens Shoes",
     "womens-watches": "Womens Watches"
   },
+  "dealsPage": {
+    "title": "Deals",
+    "badge": "Up to -{percent}%",
+    "heading": "Discover the best deals",
+    "subtitle": "Browse the products with the biggest discounts right now.",
+    "emptyTitle": "No active deals right now",
+    "emptySubtitle": "Check back soon — offers are updated regularly."
+  },
+  "privacyPage": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: September 10, 2026",
+    "intro": "Nexa (\"we\", \"us\") respects the privacy of our users. This policy explains what personal data we collect, why we collect it, and how we protect it when you use our online store.",
+    "sections": [
+      {
+        "heading": "What data we collect",
+        "body": "When you browse the store, shop, or create an account, we may collect: your name and email address, shipping address and payment details (processed securely by Stripe), cart contents, order history, and technical information such as your IP address and cookie data."
+      },
+      {
+        "heading": "How we use your data",
+        "body": "We use the data we collect to process orders, maintain your account, improve our products and services, communicate with you (e.g. order confirmations), and comply with our legal obligations."
+      },
+      {
+        "heading": "Cookies",
+        "body": "Nexa uses cookies for core site functionality (e.g. remembering your cart contents and chosen language) and for traffic analysis. You can manage cookies through your browser settings."
+      },
+      {
+        "heading": "Third parties",
+        "body": "To provide our services, we share data with trusted providers: Supabase (database and hosting), Stripe (payment processing), and Clerk (authentication). Each of them processes data according to their own privacy policies."
+      },
+      {
+        "heading": "Storage and security",
+        "body": "Your data is stored on secure servers, and access to it is restricted. We keep personal information for as long as necessary for the purposes described in this policy, or as required by law."
+      },
+      {
+        "heading": "Your rights",
+        "body": "You have the right to request access to, correction of, or deletion of your personal data, as well as to withdraw your consent to data processing at any time. To exercise these rights, contact us."
+      },
+      {
+        "heading": "Changes to this policy",
+        "body": "We may update this policy from time to time. If we make material changes, we will notify you via the site or by email."
+      },
+      {
+        "heading": "Contact us",
+        "body": "If you have questions about this privacy policy, contact us at privacy@nexa-shop.example."
+      }
+    ]
+  },
+  "aboutPage": {
+    "badge": "About us",
+    "heading": "Shopping, built with you in mind",
+    "subtitle": "Nexa is an online store that brings quality products from many categories together in one place — with a clean design, fast shopping, and attention to detail.",
+    "storyHeading": "Our story",
+    "storyBody1": "Nexa started with a simple idea — shopping online shouldn't be complicated. We wanted to build a store where finding the right product takes seconds, not minutes, and the path from browsing to checkout feels smooth and enjoyable.",
+    "storyBody2": "Today we bring together products across electronics, fashion, home, and accessories — curated, categorized, and presented in a way that makes choosing easy.",
+    "stats": {
+      "products": "Products",
+      "categories": "Categories",
+      "brands": "Brands"
+    },
+    "valuesHeading": "Why choose Nexa",
+    "ctaHeading": "Ready to start shopping?",
+    "ctaSubtitle": "Browse the full catalog and find the products you're looking for.",
+    "ctaButton": "Browse products"
+  },
   "language": {
     "label": "Language"
   }

@@ -28,7 +28,7 @@
 | 2 | Каталог с всички продукти | `/products` |
 | 3 | Продуктова страница (детайли) | `/products/[slug]` |
 | 4 | Категории (списък) | `/categories` |
-| 5 | Продукти по категория | `/categories/[slug]` |
+| 5 | Продукти по категория | `/products?category=[slug]` (не отделен route — филтър на `/products`) |
 | 6 | Марки/брандове (списък) | `/brands` |
 | 7 | Продукти по марка | `/brands/[slug]` |
 | 8 | Резултати от търсене | `/search` |
@@ -90,12 +90,17 @@
 - [x] Детайлна страница на продукт (`/products/[id]`) — галерия, добавяне в кошница, табове (описание/доставка/отзиви), подобни продукти
 - [x] Кошница (localStorage, `src/lib/cart-context.tsx`) — брояч в header-а
 - [x] Страница „Кошница" (`/cart`) — редакция на количества, премахване, empty state, обобщение на поръчката с прагова безплатна доставка
-- [x] Custom 404 страница (`src/app/not-found.tsx`)
+- [x] Custom 404 страница (`src/app/[locale]/not-found.tsx`)
+- [x] Страница „Категории" (`/categories`) — всички 24 категории със снимки и брой продукти, води към `/products?category=slug`
+- [x] Двуезичност BG/EN (`next-intl`, locale routing `/bg/...` `/en/...`) — цялото UI е преведено; продуктовите данни (заглавия/описания от DummyJSON) остават на английски по избор
+- [x] Страница „Промоции" (`/deals`) — продукти с отстъпка, сортирани по най-голямо намаление, номерирана пагинация (`src/components/ui/Pagination.tsx`, генеричен, `?page=` само)
+- [x] Страница „Политика за поверителност" (`/privacy`) — двуезично съдържание, секции в `messages/*.json` (`privacyPage.sections`)
+- [x] `robots.txt` (`src/app/robots.ts`, на root ниво извън `[locale]`) — allow всичко, disallow `/cart`, `/checkout`, `/account` във всички езици
 - [ ] Checkout страница (`/checkout`) — линкът от кошницата вече сочи натам, страницата предстои
 - [ ] Clerk автентикация
 - [ ] Stripe интеграция
 - [ ] Cloudflare Workers deployment
-- [ ] Основен дизайн/UI (Shopify-inspired, тъмно синьо/черно/бяло) — homepage, /products, детайлна страница и /cart готови, остават другите
+- [ ] Основен дизайн/UI (Shopify-inspired, тъмно синьо/черно/бяло) — homepage, /products, детайлна страница, /cart и /categories готови, остават другите
 
 ## Supabase — връзка и конфигурация
 - Project URL: `https://lrrrbzdkvnegosppqtcq.supabase.co`
@@ -107,5 +112,15 @@
 - Директната DB връзка (`db.<ref>.supabase.co`) е само IPv6 — тази мрежа няма IPv6, затова се ползва **connection pooling** хостът (`aws-0-eu-central-1.pooler.supabase.com`, порт `6543`, потребител `postgres.<project-ref>`)
 - Homepage (`FeaturedProducts`, `CategoryGrid`) вече чете от Supabase (`src/lib/products.ts`), не директно от DummyJSON — заредени са всички 194 продукта, 24 категории
 
+## Интернационализация (BG/EN)
+- Библиотека: `next-intl`, locale routing с URL префикс (`/bg/...` по подразбиране, `/en/...`)
+- `src/i18n/routing.ts`, `src/i18n/navigation.ts` (локализирани `Link`/`useRouter`/`usePathname` — ползвани навсякъде вместо `next/link`/`next/navigation`), `src/i18n/request.ts`
+- `src/proxy.ts` (Next.js 16 преименува `middleware.ts` → `proxy.ts`; трябва да е в `src/`, не в root, защото проектът ползва `src/app`) — прави redirect от `/` към locale-a по подразбиране
+- Преводи: `messages/bg.json`, `messages/en.json` — типизирани през `src/i18n/global.d.ts`
+- Категорийните имена (Smartphones, Laptops...) се превеждат ръчно през `categoryNames` namespace (`src/i18n/category-slug.ts` носи типа за slug-овете); продуктовите заглавия/описания идват от DummyJSON и остават на английски и в двата езика — по избор на потребителя
+- Език се превключва от `LanguageSwitcher` в header-а (запазва текущия path + search params)
+- Важно: `useTranslations` (от `"next-intl"`) работи само в **синхронни** Server/Client компоненти; за **async** Server Components (тези, които правят `await` преди да викат превода) трябва `getTranslations` (от `"next-intl/server"`), иначе гърми "Invalid hook call"
+
 ## Бележки
-Потребителят подготвя акаунти в Cloudflare, Stripe и Clerk паралелно с настройката на проекта.
+- Потребителят подготвя акаунти в Cloudflare, Stripe и Clerk паралелно с настройката на проекта.
+- По време на разработката потребителят самостоятелно мигрира проекта към **vinext** (Vite-базирана Next.js реализация, за Cloudflare Workers deployment) — вижда се в `package.json` (`vinext`, `@vinext/cloudflare`, `wrangler`, `vite.config.ts`, `wrangler.jsonc`). Това е паралелен build path (`npm run build:vinext` / `dev:vinext`); стандартните `npm run dev`/`npm run build` (plain Next.js) продължават да работят нормално и точно тях ползваме за разработка.
