@@ -51,6 +51,145 @@ export async function getCategoryThumbnail(
   return data.thumbnail;
 }
 
+export type CategoryCount = Category & { count: number };
+export type BrandCount = { name: string; count: number };
+
+export async function getCategoriesWithCounts(): Promise<CategoryCount[]> {
+  const { data, error } = await supabase.from("products").select("category");
+
+  if (error || !data) {
+    console.error("getCategoriesWithCounts failed:", error?.message);
+    return [];
+  }
+
+  const counts = new Map<string, number>();
+  for (const row of data) {
+    counts.set(row.category, (counts.get(row.category) ?? 0) + 1);
+  }
+
+  return Array.from(counts.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([slug, count]) => ({ slug, name: toTitleCase(slug), count }));
+}
+
+export async function getBrandsWithCounts(): Promise<BrandCount[]> {
+  const { data, error } = await supabase
+    .from("products")
+    .select("brand")
+    .not("brand", "is", null);
+
+  if (error || !data) {
+    console.error("getBrandsWithCounts failed:", error?.message);
+    return [];
+  }
+
+  const counts = new Map<string, number>();
+  for (const row of data) {
+    if (!row.brand) continue;
+    counts.set(row.brand, (counts.get(row.brand) ?? 0) + 1);
+  }
+
+  return Array.from(counts.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([name, count]) => ({ name, count }));
+}
+
+export async function getPriceBounds(): Promise<{ min: number; max: number }> {
+  const [minRes, maxRes] = await Promise.all([
+    supabase
+      .from("products")
+      .select("price")
+      .order("price", { ascending: true })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from("products")
+      .select("price")
+      .order("price", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+
+  return {
+    min: Math.floor(minRes.data?.price ?? 0),
+    max: Math.ceil(maxRes.data?.price ?? 0),
+  };
+}
+
+export const PRODUCTS_PAGE_SIZE = 12;
+
+export const SORT_OPTIONS = [
+  "featured",
+  "price-asc",
+  "price-desc",
+  "rating-desc",
+] as const;
+export type SortOption = (typeof SORT_OPTIONS)[number];
+
+export type ProductsQuery = {
+  category?: string[];
+  brand?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  minRating?: number;
+  sort?: SortOption;
+  page?: number;
+};
+
+export type ProductsResult = {
+  products: Product[];
+  total: number;
+};
+
+export async function getProducts(
+  query: ProductsQuery = {},
+): Promise<ProductsResult> {
+  const page = query.page && query.page > 0 ? query.page : 1;
+  const from = (page - 1) * PRODUCTS_PAGE_SIZE;
+  const to = from + PRODUCTS_PAGE_SIZE - 1;
+
+  let request = supabase.from("products").select("*", { count: "exact" });
+
+  if (query.category?.length) {
+    request = request.in("category", query.category);
+  }
+  if (query.brand?.length) {
+    request = request.in("brand", query.brand);
+  }
+  if (query.minPrice != null) {
+    request = request.gte("price", query.minPrice);
+  }
+  if (query.maxPrice != null) {
+    request = request.lte("price", query.maxPrice);
+  }
+  if (query.minRating != null) {
+    request = request.gte("rating", query.minRating);
+  }
+
+  switch (query.sort) {
+    case "price-asc":
+      request = request.order("price", { ascending: true });
+      break;
+    case "price-desc":
+      request = request.order("price", { ascending: false });
+      break;
+    case "rating-desc":
+      request = request.order("rating", { ascending: false });
+      break;
+    default:
+      request = request.order("id", { ascending: true });
+  }
+
+  const { data, error, count } = await request.range(from, to);
+
+  if (error || !data) {
+    console.error("getProducts failed:", error?.message);
+    return { products: [], total: 0 };
+  }
+
+  return { products: data, total: count ?? 0 };
+}
+
 export function formatPrice(price: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",

@@ -85,11 +85,12 @@
 - [x] Инициализиран Next.js проект
 - [x] Начална страница (Hero, USP лента, категории, топ продукти, промо банер, newsletter)
 - [x] Supabase проект и схема на базата данни (`products` таблица + RLS за публично четене)
-- [x] Seed на продукти от DummyJSON (100 продукта заредени в Supabase)
+- [x] Seed на продукти от DummyJSON (194 продукта, 24 категории заредени в Supabase)
+- [x] Страница „Продукти" (`/products`) — филтри (категория, цена, рейтинг, бранд), сортиране, номерирана пагинация
 - [ ] Clerk автентикация
 - [ ] Stripe интеграция
 - [ ] Cloudflare Workers deployment
-- [ ] Основен дизайн/UI (Shopify-inspired, тъмно синьо/черно/бяло) — homepage готова, остават другите страници
+- [ ] Основен дизайн/UI (Shopify-inspired, тъмно синьо/черно/бяло) — homepage и /products готови, остават другите страници
 
 ## Supabase — връзка и конфигурация
 - Project URL: `https://lrrrbzdkvnegosppqtcq.supabase.co`
