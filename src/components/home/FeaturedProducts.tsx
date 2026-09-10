@@ -1,10 +1,14 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { ProductCard } from "@/components/product/ProductCard";
 import { getTopRatedProducts } from "@/lib/products";
 
 export async function FeaturedProducts() {
-  const products = await getTopRatedProducts(8);
+  const [products, t] = await Promise.all([
+    getTopRatedProducts(8),
+    getTranslations("home.featured"),
+  ]);
 
   if (products.length === 0) return null;
 
@@ -14,17 +18,15 @@ export async function FeaturedProducts() {
         <div className="mb-8 flex items-end justify-between">
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-navy-950">
-              Топ оценени продукти
+              {t("heading")}
             </h2>
-            <p className="mt-1 text-sm text-navy-500">
-              Избрани заради високите отзиви от клиенти
-            </p>
+            <p className="mt-1 text-sm text-navy-500">{t("subheading")}</p>
           </div>
           <Link
             href="/products"
             className="text-sm font-medium text-navy-600 hover:text-navy-950"
           >
-            Всички продукти →
+            {t("viewAll")}
           </Link>
         </div>
 

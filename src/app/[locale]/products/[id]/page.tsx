@@ -1,31 +1,27 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Star } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { ProductGallery } from "@/components/products/ProductGallery";
 import { AddToCartPanel } from "@/components/products/AddToCartPanel";
 import { ProductTabs } from "@/components/products/ProductTabs";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
 import {
-  categoryDisplayName,
   discountedPrice,
   formatPrice,
   getProductById,
   getRelatedProducts,
 } from "@/lib/products";
+import type { CategorySlug } from "@/i18n/category-slug";
 
 export const revalidate = 300;
-
-const AVAILABILITY_LABELS: Record<string, string> = {
-  "In Stock": "В наличност",
-  "Low Stock": "Ограничена наличност",
-};
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
   const product = await getProductById(Number(id));
@@ -40,7 +36,7 @@ export async function generateMetadata({
 export default async function ProductDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }) {
   const { id } = await params;
   const productId = Number(id);
@@ -49,22 +45,31 @@ export default async function ProductDetailPage({
   const product = await getProductById(productId);
   if (!product) notFound();
 
-  const related = await getRelatedProducts(product.category, product.id, 4);
+  const [related, t, tBreadcrumb, tCategoryNames] = await Promise.all([
+    getRelatedProducts(product.category, product.id, 4),
+    getTranslations("productDetail"),
+    getTranslations("breadcrumb"),
+    getTranslations("categoryNames"),
+  ]);
 
   const hasDiscount = product.discount_percentage > 1;
   const finalPrice = discountedPrice(product);
-  const categoryName = categoryDisplayName(product.category);
+  const categoryName = tCategoryNames(product.category as CategorySlug);
   const availabilityLabel =
-    (product.availability_status &&
-      AVAILABILITY_LABELS[product.availability_status]) ??
-    (product.stock > 0 ? "В наличност" : "Изчерпан");
+    product.availability_status === "In Stock"
+      ? t("inStock")
+      : product.availability_status === "Low Stock"
+        ? t("lowStock")
+        : product.stock > 0
+          ? t("inStock")
+          : t("outOfStock");
 
   return (
     <div className="bg-white py-10">
       <Container>
         <nav className="mb-6 text-xs text-navy-500">
           <Link href="/" className="hover:text-navy-950">
-            Начало
+            {tBreadcrumb("home")}
           </Link>
           <span className="mx-1.5">/</span>
           <Link
@@ -78,10 +83,7 @@ export default async function ProductDetailPage({
         </nav>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <ProductGallery
-            images={product.images}
-            title={product.title}
-          />
+          <ProductGallery images={product.images} title={product.title} />
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between">
@@ -119,8 +121,8 @@ export default async function ProductDetailPage({
                 ))}
               </div>
               <span className="text-navy-500">
-                {product.rating.toFixed(1)} · {product.reviews.length}{" "}
-                {product.reviews.length === 1 ? "отзив" : "отзива"}
+                {product.rating.toFixed(1)} ·{" "}
+                {t("reviewsCount", { count: product.reviews.length })}
               </span>
             </div>
 
@@ -170,18 +172,18 @@ export default async function ProductDetailPage({
             <dl className="grid grid-cols-2 gap-3 border-t border-navy-100 pt-5 text-sm sm:grid-cols-3">
               {product.sku && (
                 <div>
-                  <dt className="text-navy-400">Артикул</dt>
+                  <dt className="text-navy-400">{t("sku")}</dt>
                   <dd className="font-medium text-navy-800">{product.sku}</dd>
                 </div>
               )}
               <div>
-                <dt className="text-navy-400">Категория</dt>
+                <dt className="text-navy-400">{t("category")}</dt>
                 <dd className="font-medium text-navy-800">{categoryName}</dd>
               </div>
               <div>
-                <dt className="text-navy-400">Наличност</dt>
+                <dt className="text-navy-400">{t("availability")}</dt>
                 <dd className="font-medium text-navy-800">
-                  {product.stock} бр.
+                  {t("stockUnits", { count: product.stock })}
                 </dd>
               </div>
             </dl>

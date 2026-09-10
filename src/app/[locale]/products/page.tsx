@@ -1,5 +1,6 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { ProductCard } from "@/components/product/ProductCard";
 import { FilterSidebar } from "@/components/products/FilterSidebar";
@@ -20,38 +21,56 @@ import {
   getProducts,
   PRODUCTS_PAGE_SIZE,
 } from "@/lib/products";
+import type { CategorySlug } from "@/i18n/category-slug";
 
-export const metadata: Metadata = {
-  title: "Продукти — Nexa",
-  description: "Разгледай целия каталог продукти на Nexa.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("products");
+  return { title: `${t("title")} — Nexa` };
+}
 
 export const revalidate = 300;
 
 export default async function ProductsPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<RawSearchParams>;
 }) {
+  const { locale } = await params;
   const rawSearchParams = await searchParams;
   const flat = flattenSearchParams(rawSearchParams);
   const filters = parseFilters(flat);
 
-  const [{ products, total }, categories, brands, priceBounds] =
-    await Promise.all([
-      getProducts({
-        category: filters.category,
-        brand: filters.brand,
-        minRating: filters.minRating,
-        minPrice: filters.minPrice,
-        maxPrice: filters.maxPrice,
-        sort: filters.sort,
-        page: filters.page,
-      }),
-      getCategoriesWithCounts(),
-      getBrandsWithCounts(),
-      getPriceBounds(),
-    ]);
+  const [
+    { products, total },
+    categoriesRaw,
+    brands,
+    priceBounds,
+    t,
+    tCategoryNames,
+  ] = await Promise.all([
+    getProducts({
+      category: filters.category,
+      brand: filters.brand,
+      minRating: filters.minRating,
+      minPrice: filters.minPrice,
+      maxPrice: filters.maxPrice,
+      sort: filters.sort,
+      page: filters.page,
+    }),
+    getCategoriesWithCounts(),
+    getBrandsWithCounts(),
+    getPriceBounds(),
+    getTranslations("products"),
+    getTranslations("categoryNames"),
+  ]);
+  const tBreadcrumb = await getTranslations("breadcrumb");
+
+  const categories = categoriesRaw.map((category) => ({
+    ...category,
+    name: tCategoryNames(category.slug as CategorySlug),
+  }));
 
   const totalPages = Math.max(1, Math.ceil(total / PRODUCTS_PAGE_SIZE));
   const categoryNames = Object.fromEntries(
@@ -60,6 +79,7 @@ export default async function ProductsPage({
 
   const filterSidebar = (
     <FilterSidebar
+      locale={locale}
       flat={flat}
       filters={filters}
       categories={categories}
@@ -73,19 +93,19 @@ export default async function ProductsPage({
       <Container>
         <nav className="mb-4 text-xs text-navy-500">
           <Link href="/" className="hover:text-navy-950">
-            Начало
+            {tBreadcrumb("home")}
           </Link>
           <span className="mx-1.5">/</span>
-          <span className="text-navy-800">Продукти</span>
+          <span className="text-navy-800">{t("breadcrumb")}</span>
         </nav>
 
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-navy-950">
-              Всички продукти
+              {t("title")}
             </h1>
             <p className="mt-1 text-sm text-navy-500">
-              {total} {total === 1 ? "продукт" : "продукта"}
+              {t("count", { count: total })}
             </p>
           </div>
 

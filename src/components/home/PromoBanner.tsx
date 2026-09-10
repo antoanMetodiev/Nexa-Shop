@@ -1,8 +1,11 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 
 export function PromoBanner() {
+  const t = useTranslations("home.promo");
+
   return (
     <section className="bg-white py-16">
       <Container>
@@ -13,19 +16,17 @@ export function PromoBanner() {
           />
           <div className="relative flex flex-col items-center gap-4">
             <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-navy-100">
-              Ограничено предложение
+              {t("badge")}
             </span>
             <h2 className="max-w-xl text-2xl font-bold text-white sm:text-3xl">
-              До -40% на избрани продукти тази седмица
+              {t("heading")}
             </h2>
-            <p className="max-w-md text-sm text-navy-200">
-              Разгледай текущите намаления, преди да са изчерпани наличностите.
-            </p>
+            <p className="max-w-md text-sm text-navy-200">{t("subheading")}</p>
             <Link
               href="/deals"
               className="mt-2 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-navy-100"
             >
-              Виж промоциите
+              {t("cta")}
               <ArrowRight className="size-4" />
             </Link>
           </div>

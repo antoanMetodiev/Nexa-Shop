@@ -1,5 +1,6 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { X } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import {
   buildProductsHref,
   toggleListValue,
@@ -30,6 +31,7 @@ export function ActiveFilterPills({
   filters: ProductsFilters;
   categoryNames: Record<string, string>;
 }) {
+  const t = useTranslations("products.activeFilters");
   const pills: { key: string; label: string; href: string }[] = [];
 
   for (const slug of filters.category) {
@@ -55,7 +57,7 @@ export function ActiveFilterPills({
   if (filters.minRating != null) {
     pills.push({
       key: "rating",
-      label: `${filters.minRating}+ звезди`,
+      label: t("ratingLabel", { rating: filters.minRating }),
       href: buildProductsHref(flat, { rating: undefined }),
     });
   }
@@ -82,7 +84,7 @@ export function ActiveFilterPills({
         scroll={false}
         className="text-xs font-medium text-navy-500 hover:text-navy-950"
       >
-        Изчисти всички
+        {t("clearAll")}
       </Link>
     </div>
   );

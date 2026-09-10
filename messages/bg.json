@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "title": "Nexa — Онлайн магазин",
+    "description": "Nexa е онлайн магазин за електроника, мода и аксесоари — качествени продукти, бърза доставка и сигурно плащане."
+  },
+  "nav": {
+    "home": "Начало",
+    "products": "Продукти",
+    "categories": "Категории",
+    "deals": "Промоции",
+    "about": "За нас"
+  },
+  "header": {
+    "openMenu": "Отвори менюто",
+    "closeMenu": "Затвори менюто",
+    "search": "Търсене",
+    "wishlist": "Любими продукти",
+    "account": "Профил",
+    "cart": "Кошница",
+    "signIn": "Вход / Профил"
+  },
+  "footer": {
+    "tagline": "Онлайн магазин за качествени продукти на достъпни цени — бързо, сигурно и удобно.",
+    "shoppingHeading": "Пазаруване",
+    "allProducts": "Всички продукти",
+    "categories": "Категории",
+    "deals": "Промоции",
+    "wishlist": "Любими продукти",
+    "helpHeading": "Помощ",
+    "contact": "Контакти",
+    "faq": "Често задавани въпроси",
+    "shipping": "Доставка и връщане",
+    "trackOrder": "Проследи поръчка",
+    "companyHeading": "Компания",
+    "about": "За нас",
+    "terms": "Условия за ползване",
+    "privacy": "Политика за поверителност",
+    "copyright": "© {year} Nexa. Всички права запазени.",
+    "dataNote": "Продуктови данни: DummyJSON (демо съдържание)"
+  },
+  "home": {
+    "hero": {
+      "badge": "Нова колекция 2026",
+      "titleLine1": "Стил и качество,",
+      "titleLine2": "избрани за теб.",
+      "subtitle": "Nexa събира хиляди продукти на едно място — електроника, мода и аксесоари, с бърза доставка и сигурно плащане.",
+      "shopNow": "Пазарувай сега",
+      "viewDeals": "Виж промоциите"
+    },
+    "usp": {
+      "shippingTitle": "Безплатна доставка",
+      "shippingDesc": "За поръчки над $100",
+      "returnsTitle": "Лесно връщане",
+      "returnsDesc": "До 30 дни без въпроси",
+      "paymentTitle": "Сигурно плащане",
+      "paymentDesc": "Защитено чрез Stripe",
+      "supportTitle": "Поддръжка 24/7",
+      "supportDesc": "Винаги на разположение"
+    },
+    "categories": {
+      "heading": "Пазарувай по категория",
+      "viewAll": "Всички категории →"
+    },
+    "featured": {
+      "heading": "Топ оценени продукти",
+      "subheading": "Избрани заради високите отзиви от клиенти",
+      "viewAll": "Всички продукти →"
+    },
+    "promo": {
+      "badge": "Ограничено предложение",
+      "heading": "До -40% на избрани продукти тази седмица",
+      "subheading": "Разгледай текущите намаления, преди да са изчерпани наличностите.",
+      "cta": "Виж промоциите"
+    },
+    "newsletter": {
+      "heading": "Бъди в течение с Nexa",
+      "subheading": "Абонирай се за нашия бюлетин и получавай новини за нови продукти и ексклузивни промоции.",
+      "placeholder": "Твоят имейл адрес",
+      "subscribe": "Абонирай се",
+      "thanks": "Благодарим! Ще се чуем скоро на {email}."
+    }
+  },
+  "breadcrumb": {
+    "home": "Начало"
+  },
+  "products": {
+    "title": "Всички продукти",
+    "count": "{count, plural, one {# продукт} other {# продукта}}",
+    "breadcrumb": "Продукти",
+    "filters": {
+      "heading": "Филтри",
+      "clearAll": "Изчисти всички",
+      "category": "Категория",
+      "price": "Цена",
+      "apply": "OK",
+      "rating": "Рейтинг",
+      "andUp": "и нагоре",
+      "brand": "Бранд"
+    },
+    "sort": {
+      "featured": "Препоръчани",
+      "priceAsc": "Цена: ниска към висока",
+      "priceDesc": "Цена: висока към ниска",
+      "ratingDesc": "Най-високо оценени"
+    },
+    "mobileFilters": {
+      "button": "Филтри",
+      "close": "Затвори филтрите",
+      "apply": "Приложи филтрите"
+    },
+    "emptyState": {
+      "title": "Няма намерени продукти",
+      "subtitle": "Опитай да промениш или изчистиш филтрите.",
+      "cta": "Изчисти филтрите"
+    },
+    "activeFilters": {
+      "ratingLabel": "{rating}+ звезди",
+      "clearAll": "Изчисти всички"
+    }
+  },
+  "productDetail": {
+    "inStock": "В наличност",
+    "lowStock": "Ограничена наличност",
+    "outOfStock": "Изчерпан",
+    "reviewsCount": "{count, plural, one {# отзив} other {# отзива}}",
+    "decreaseQuantity": "Намали количеството",
+    "increaseQuantity": "Увеличи количеството",
+    "addToCart": "Добави в кошницата",
+    "added": "Добавено",
+    "sku": "Артикул",
+    "category": "Категория",
+    "availability": "Наличност",
+    "stockUnits": "{count} бр.",
+    "tabs": {
+      "description": "Описание",
+      "shipping": "Доставка и връщане",
+      "reviews": "Отзиви ({count})"
+    },
+    "noDescription": "Няма налично описание за този продукт.",
+    "shippingLabel": "Доставка",
+    "returnLabel": "Връщане",
+    "warrantyLabel": "Гаранция",
+    "noInfo": "Няма информация.",
+    "noReviews": "Все още няма отзиви за този продукт.",
+    "relatedHeading": "Подобни продукти",
+    "imageLabel": "Снимка {index}"
+  },
+  "cart": {
+    "title": "Кошница",
+    "breadcrumb": "Кошница",
+    "itemsCount": "{count, plural, one {# продукт} other {# продукта}} в кошницата",
+    "clearCart": "Изпразни кошницата",
+    "remove": "Премахни от кошницата",
+    "decreaseQuantity": "Намали количеството",
+    "increaseQuantity": "Увеличи количеството",
+    "perUnit": "{price} / бр.",
+    "emptyTitle": "Кошницата е празна",
+    "emptySubtitle": "Разгледай продуктите и добави нещо, което ти харесва.",
+    "emptyCta": "Разгледай продуктите",
+    "summary": {
+      "heading": "Обобщение на поръчката",
+      "subtotal": "Междинна сума",
+      "shipping": "Доставка",
+      "free": "Безплатна",
+      "freeShippingNote": "Безплатна доставка над {amount}",
+      "total": "Общо",
+      "checkout": "Продължи към поръчката",
+      "continueShopping": "Продължи пазаруването"
+    }
+  },
+  "notFound": {
+    "badge": "Грешка 404",
+    "title": "Страницата не е намерена",
+    "subtitle": "Възможно е връзката да е остаряла, или страницата вече да не съществува. Провери адреса или продължи пазаруването си.",
+    "home": "Начало",
+    "browseProducts": "Разгледай продуктите"
+  },
+  "categoriesPage": {
+    "title": "Категории",
+    "subtitle": "Разгледай пълния каталог по категория.",
+    "productsCount": "{count, plural, one {# продукт} other {# продукта}}"
+  },
+  "categoryNames": {
+    "beauty": "Красота",
+    "fragrances": "Парфюми",
+    "furniture": "Мебели",
+    "groceries": "Хранителни стоки",
+    "home-decoration": "Декорация за дома",
+    "kitchen-accessories": "Кухненски аксесоари",
+    "laptops": "Лаптопи",
+    "mens-shirts": "Мъжки ризи",
+    "mens-shoes": "Мъжки обувки",
+    "mens-watches": "Мъжки часовници",
+    "mobile-accessories": "Аксесоари за телефони",
+    "motorcycle": "Мотоциклети",
+    "skin-care": "Грижа за кожата",
+    "smartphones": "Смартфони",
+    "sports-accessories": "Спортни аксесоари",
+    "sunglasses": "Слънчеви очила",
+    "tablets": "Таблети",
+    "tops": "Горнища",
+    "vehicle": "Автомобили",
+    "womens-bags": "Дамски чанти",
+    "womens-dresses": "Дамски рокли",
+    "womens-jewellery": "Дамски бижута",
+    "womens-shoes": "Дамски обувки",
+    "womens-watches": "Дамски часовници"
+  },
+  "language": {
+    "label": "Език"
+  }
+}

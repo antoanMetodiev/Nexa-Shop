@@ -1,15 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { totalCount } = useCart();
+  const t = useTranslations("header");
+  const tNav = useTranslations("nav");
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy-100 bg-white/95 backdrop-blur">
@@ -18,7 +22,7 @@ export function Header() {
           <button
             type="button"
             className="-ml-2 p-2 text-navy-900 md:hidden"
-            aria-label="Отвори менюто"
+            aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
             onClick={() => setMenuOpen((open) => !open)}
           >
             {menuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -38,36 +42,41 @@ export function Header() {
                 href={item.href}
                 className="text-sm font-medium text-navy-700 transition-colors hover:text-navy-950"
               >
-                {item.label}
+                {tNav(item.key)}
               </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-1">
+            <Suspense
+              fallback={<div className="h-[30px] w-[62px] rounded-full border border-navy-200" />}
+            >
+              <LanguageSwitcher />
+            </Suspense>
             <Link
               href="/search"
-              aria-label="Търсене"
+              aria-label={t("search")}
               className="rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50"
             >
               <Search className="size-5" />
             </Link>
             <Link
               href="/wishlist"
-              aria-label="Любими продукти"
+              aria-label={t("wishlist")}
               className="hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
             >
               <Heart className="size-5" />
             </Link>
             <Link
               href="/sign-in"
-              aria-label="Профил"
+              aria-label={t("account")}
               className="hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
             >
               <User className="size-5" />
             </Link>
             <Link
               href="/cart"
-              aria-label="Кошница"
+              aria-label={t("cart")}
               className="relative rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50"
             >
               <ShoppingBag className="size-5" />
@@ -92,7 +101,7 @@ export function Header() {
                   onClick={() => setMenuOpen(false)}
                   className="border-b border-navy-50 py-3 text-sm font-medium text-navy-800 last:border-none"
                 >
-                  {item.label}
+                  {tNav(item.key)}
                 </Link>
               ))}
               <Link
@@ -100,7 +109,7 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="py-3 text-sm font-medium text-navy-800"
               >
-                Вход / Профил
+                {t("signIn")}
               </Link>
             </div>
           </Container>

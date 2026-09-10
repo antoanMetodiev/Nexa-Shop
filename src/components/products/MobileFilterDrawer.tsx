@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { SlidersHorizontal, X } from "lucide-react";
 
 export function MobileFilterDrawer({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("products.mobileFilters");
+  const tFilters = useTranslations("products.filters");
 
   return (
     <>
@@ -14,7 +17,7 @@ export function MobileFilterDrawer({ children }: { children: ReactNode }) {
         className="flex items-center gap-2 rounded-full border border-navy-200 px-4 py-2 text-sm font-medium text-navy-800 lg:hidden"
       >
         <SlidersHorizontal className="size-4" />
-        Филтри
+        {t("button")}
       </button>
 
       {open && (
@@ -26,12 +29,12 @@ export function MobileFilterDrawer({ children }: { children: ReactNode }) {
           <div className="absolute inset-y-0 left-0 flex w-full max-w-xs flex-col bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-navy-100 px-4 py-4">
               <span className="text-sm font-semibold text-navy-950">
-                Филтри
+                {tFilters("heading")}
               </span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                aria-label="Затвори филтрите"
+                aria-label={t("close")}
                 className="rounded-full p-1.5 text-navy-500 hover:bg-navy-50"
               >
                 <X className="size-5" />
@@ -44,7 +47,7 @@ export function MobileFilterDrawer({ children }: { children: ReactNode }) {
                 onClick={() => setOpen(false)}
                 className="w-full rounded-full bg-navy-900 py-2.5 text-sm font-semibold text-white"
               >
-                Приложи филтрите
+                {t("apply")}
               </button>
             </div>
           </div>

@@ -1,15 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { buildProductsHref, type FlatParams } from "@/lib/filter-url";
-import type { SortOption } from "@/lib/products";
-
-const SORT_LABELS: Record<SortOption, string> = {
-  featured: "Препоръчани",
-  "price-asc": "Цена: ниска към висока",
-  "price-desc": "Цена: висока към ниска",
-  "rating-desc": "Най-високо оценени",
-};
+import { SORT_OPTIONS, type SortOption } from "@/lib/products";
 
 export function SortSelect({
   flat,
@@ -19,6 +13,14 @@ export function SortSelect({
   value: SortOption;
 }) {
   const router = useRouter();
+  const t = useTranslations("products.sort");
+
+  const labels: Record<SortOption, string> = {
+    featured: t("featured"),
+    "price-asc": t("priceAsc"),
+    "price-desc": t("priceDesc"),
+    "rating-desc": t("ratingDesc"),
+  };
 
   return (
     <select
@@ -34,9 +36,9 @@ export function SortSelect({
       }}
       className="rounded-full border border-navy-200 bg-white px-4 py-2 text-sm font-medium text-navy-800 focus:border-navy-500 focus:outline-none"
     >
-      {(Object.keys(SORT_LABELS) as SortOption[]).map((option) => (
+      {SORT_OPTIONS.map((option) => (
         <option key={option} value={option}>
-          {SORT_LABELS[option]}
+          {labels[option]}
         </option>
       ))}
     </select>

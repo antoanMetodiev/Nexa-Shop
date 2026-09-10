@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "title": "Nexa — Online Store",
+    "description": "Nexa is an online store for electronics, fashion, and accessories — quality products, fast delivery, and secure payment."
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "deals": "Deals",
+    "about": "About"
+  },
+  "header": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "search": "Search",
+    "wishlist": "Wishlist",
+    "account": "Account",
+    "cart": "Cart",
+    "signIn": "Sign in / Account"
+  },
+  "footer": {
+    "tagline": "Online store for quality products at affordable prices — fast, secure, and convenient.",
+    "shoppingHeading": "Shopping",
+    "allProducts": "All products",
+    "categories": "Categories",
+    "deals": "Deals",
+    "wishlist": "Wishlist",
+    "helpHeading": "Help",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "shipping": "Shipping & returns",
+    "trackOrder": "Track order",
+    "companyHeading": "Company",
+    "about": "About us",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "copyright": "© {year} Nexa. All rights reserved.",
+    "dataNote": "Product data: DummyJSON (demo content)"
+  },
+  "home": {
+    "hero": {
+      "badge": "New collection 2026",
+      "titleLine1": "Style and quality,",
+      "titleLine2": "picked for you.",
+      "subtitle": "Nexa brings together thousands of products in one place — electronics, fashion, and accessories, with fast delivery and secure payment.",
+      "shopNow": "Shop now",
+      "viewDeals": "View deals"
+    },
+    "usp": {
+      "shippingTitle": "Free shipping",
+      "shippingDesc": "On orders over $100",
+      "returnsTitle": "Easy returns",
+      "returnsDesc": "Up to 30 days, no questions asked",
+      "paymentTitle": "Secure payment",
+      "paymentDesc": "Protected by Stripe",
+      "supportTitle": "24/7 support",
+      "supportDesc": "Always available"
+    },
+    "categories": {
+      "heading": "Shop by category",
+      "viewAll": "All categories →"
+    },
+    "featured": {
+      "heading": "Top rated products",
+      "subheading": "Selected for their high customer reviews",
+      "viewAll": "All products →"
+    },
+    "promo": {
+      "badge": "Limited offer",
+      "heading": "Up to -40% on selected products this week",
+      "subheading": "Check out the current deals before stock runs out.",
+      "cta": "View deals"
+    },
+    "newsletter": {
+      "heading": "Stay in the loop with Nexa",
+      "subheading": "Subscribe to our newsletter and get updates on new products and exclusive deals.",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe",
+      "thanks": "Thanks! We'll be in touch soon at {email}."
+    }
+  },
+  "breadcrumb": {
+    "home": "Home"
+  },
+  "products": {
+    "title": "All products",
+    "count": "{count, plural, one {# product} other {# products}}",
+    "breadcrumb": "Products",
+    "filters": {
+      "heading": "Filters",
+      "clearAll": "Clear all",
+      "category": "Category",
+      "price": "Price",
+      "apply": "OK",
+      "rating": "Rating",
+      "andUp": "& up",
+      "brand": "Brand"
+    },
+    "sort": {
+      "featured": "Featured",
+      "priceAsc": "Price: low to high",
+      "priceDesc": "Price: high to low",
+      "ratingDesc": "Top rated"
+    },
+    "mobileFilters": {
+      "button": "Filters",
+      "close": "Close filters",
+      "apply": "Apply filters"
+    },
+    "emptyState": {
+      "title": "No products found",
+      "subtitle": "Try changing or clearing the filters.",
+      "cta": "Clear filters"
+    },
+    "activeFilters": {
+      "ratingLabel": "{rating}+ stars",
+      "clearAll": "Clear all"
+    }
+  },
+  "productDetail": {
+    "inStock": "In stock",
+    "lowStock": "Low stock",
+    "outOfStock": "Out of stock",
+    "reviewsCount": "{count, plural, one {# review} other {# reviews}}",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "addToCart": "Add to cart",
+    "added": "Added",
+    "sku": "SKU",
+    "category": "Category",
+    "availability": "Availability",
+    "stockUnits": "{count} in stock",
+    "tabs": {
+      "description": "Description",
+      "shipping": "Shipping & returns",
+      "reviews": "Reviews ({count})"
+    },
+    "noDescription": "No description available for this product.",
+    "shippingLabel": "Shipping",
+    "returnLabel": "Returns",
+    "warrantyLabel": "Warranty",
+    "noInfo": "No information.",
+    "noReviews": "There are no reviews for this product yet.",
+    "relatedHeading": "Related products",
+    "imageLabel": "Image {index}"
+  },
+  "cart": {
+    "title": "Cart",
+    "breadcrumb": "Cart",
+    "itemsCount": "{count, plural, one {# item} other {# items}} in your cart",
+    "clearCart": "Clear cart",
+    "remove": "Remove from cart",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "perUnit": "{price} / unit",
+    "emptyTitle": "Your cart is empty",
+    "emptySubtitle": "Browse our products and add something you like.",
+    "emptyCta": "Browse products",
+    "summary": {
+      "heading": "Order summary",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "free": "Free",
+      "freeShippingNote": "Free shipping over {amount}",
+      "total": "Total",
+      "checkout": "Proceed to checkout",
+      "continueShopping": "Continue shopping"
+    }
+  },
+  "notFound": {
+    "badge": "404 error",
+    "title": "Page not found",
+    "subtitle": "This link may be outdated, or the page no longer exists. Check the address or continue shopping.",
+    "home": "Home",
+    "browseProducts": "Browse products"
+  },
+  "categoriesPage": {
+    "title": "Categories",
+    "subtitle": "Browse the full catalog by category.",
+    "productsCount": "{count, plural, one {# product} other {# products}}"
+  },
+  "categoryNames": {
+    "beauty": "Beauty",
+    "fragrances": "Fragrances",
+    "furniture": "Furniture",
+    "groceries": "Groceries",
+    "home-decoration": "Home Decoration",
+    "kitchen-accessories": "Kitchen Accessories",
+    "laptops": "Laptops",
+    "mens-shirts": "Mens Shirts",
+    "mens-shoes": "Mens Shoes",
+    "mens-watches": "Mens Watches",
+    "mobile-accessories": "Mobile Accessories",
+    "motorcycle": "Motorcycle",
+    "skin-care": "Skin Care",
+    "smartphones": "Smartphones",
+    "sports-accessories": "Sports Accessories",
+    "sunglasses": "Sunglasses",
+    "tablets": "Tablets",
+    "tops": "Tops",
+    "vehicle": "Vehicle",
+    "womens-bags": "Womens Bags",
+    "womens-dresses": "Womens Dresses",
+    "womens-jewellery": "Womens Jewellery",
+    "womens-shoes": "Womens Shoes",
+    "womens-watches": "Womens Watches"
+  },
+  "language": {
+    "label": "Language"
+  }
+}

@@ -1,22 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Star } from "lucide-react";
 import type { ProductReview } from "@/lib/supabase/types";
 
 type Tab = "description" | "shipping" | "reviews";
-
-function formatDate(iso: string): string {
-  try {
-    return new Intl.DateTimeFormat("bg-BG", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(new Date(iso));
-  } catch {
-    return iso;
-  }
-}
 
 export function ProductTabs({
   description,
@@ -32,28 +21,42 @@ export function ProductTabs({
   reviews: ProductReview[];
 }) {
   const [tab, setTab] = useState<Tab>("description");
+  const t = useTranslations("productDetail");
+  const locale = useLocale();
+
+  function formatDate(iso: string): string {
+    try {
+      return new Intl.DateTimeFormat(locale === "bg" ? "bg-BG" : "en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date(iso));
+    } catch {
+      return iso;
+    }
+  }
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: "description", label: "Описание" },
-    { key: "shipping", label: "Доставка и връщане" },
-    { key: "reviews", label: `Отзиви (${reviews.length})` },
+    { key: "description", label: t("tabs.description") },
+    { key: "shipping", label: t("tabs.shipping") },
+    { key: "reviews", label: t("tabs.reviews", { count: reviews.length }) },
   ];
 
   return (
     <div>
       <div className="flex gap-6 border-b border-navy-100">
-        {tabs.map((t) => (
+        {tabs.map((tabItem) => (
           <button
-            key={t.key}
+            key={tabItem.key}
             type="button"
-            onClick={() => setTab(t.key)}
+            onClick={() => setTab(tabItem.key)}
             className={`-mb-px border-b-2 py-3 text-sm font-medium transition-colors ${
-              tab === t.key
+              tab === tabItem.key
                 ? "border-navy-900 text-navy-950"
                 : "border-transparent text-navy-500 hover:text-navy-800"
             }`}
           >
-            {t.label}
+            {tabItem.label}
           </button>
         ))}
       </div>
@@ -61,28 +64,34 @@ export function ProductTabs({
       <div className="py-6">
         {tab === "description" && (
           <p className="max-w-3xl text-sm leading-relaxed text-navy-700">
-            {description || "Няма налично описание за този продукт."}
+            {description || t("noDescription")}
           </p>
         )}
 
         {tab === "shipping" && (
           <dl className="grid max-w-2xl grid-cols-1 gap-4 text-sm sm:grid-cols-3">
             <div>
-              <dt className="font-semibold text-navy-950">Доставка</dt>
+              <dt className="font-semibold text-navy-950">
+                {t("shippingLabel")}
+              </dt>
               <dd className="mt-1 text-navy-600">
-                {shippingInformation || "Няма информация."}
+                {shippingInformation || t("noInfo")}
               </dd>
             </div>
             <div>
-              <dt className="font-semibold text-navy-950">Връщане</dt>
+              <dt className="font-semibold text-navy-950">
+                {t("returnLabel")}
+              </dt>
               <dd className="mt-1 text-navy-600">
-                {returnPolicy || "Няма информация."}
+                {returnPolicy || t("noInfo")}
               </dd>
             </div>
             <div>
-              <dt className="font-semibold text-navy-950">Гаранция</dt>
+              <dt className="font-semibold text-navy-950">
+                {t("warrantyLabel")}
+              </dt>
               <dd className="mt-1 text-navy-600">
-                {warrantyInformation || "Няма информация."}
+                {warrantyInformation || t("noInfo")}
               </dd>
             </div>
           </dl>
@@ -90,9 +99,7 @@ export function ProductTabs({
 
         {tab === "reviews" &&
           (reviews.length === 0 ? (
-            <p className="text-sm text-navy-500">
-              Все още няма отзиви за този продукт.
-            </p>
+            <p className="text-sm text-navy-500">{t("noReviews")}</p>
           ) : (
             <ul className="flex max-w-2xl flex-col gap-5">
               {reviews.map((review, index) => (

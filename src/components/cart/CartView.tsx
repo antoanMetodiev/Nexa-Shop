@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ShoppingBag } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { useCart } from "@/lib/cart-context";
 import { CartLineItem } from "@/components/cart/CartLineItem";
 import { OrderSummary } from "@/components/cart/OrderSummary";
@@ -9,6 +10,7 @@ import { OrderSummary } from "@/components/cart/OrderSummary";
 export function CartView() {
   const { items, hydrated, updateQuantity, removeItem, clearCart, totalPrice } =
     useCart();
+  const t = useTranslations("cart");
 
   if (!hydrated) {
     return (
@@ -26,16 +28,14 @@ export function CartView() {
           <ShoppingBag className="size-7" />
         </span>
         <div>
-          <p className="font-medium text-navy-950">Кошницата е празна</p>
-          <p className="mt-1 text-sm text-navy-500">
-            Разгледай продуктите и добави нещо, което ти харесва.
-          </p>
+          <p className="font-medium text-navy-950">{t("emptyTitle")}</p>
+          <p className="mt-1 text-sm text-navy-500">{t("emptySubtitle")}</p>
         </div>
         <Link
           href="/products"
           className="rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-800"
         >
-          Разгледай продуктите
+          {t("emptyCta")}
         </Link>
       </div>
     );
@@ -46,15 +46,14 @@ export function CartView() {
       <div>
         <div className="mb-2 flex items-center justify-between">
           <p className="text-sm text-navy-500">
-            {items.length} {items.length === 1 ? "продукт" : "продукта"} в
-            кошницата
+            {t("itemsCount", { count: items.length })}
           </p>
           <button
             type="button"
             onClick={clearCart}
             className="text-xs font-medium text-navy-500 hover:text-navy-950"
           >
-            Изпразни кошницата
+            {t("clearCart")}
           </button>
         </div>
 

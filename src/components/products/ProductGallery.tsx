@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export function ProductGallery({
   images,
@@ -12,6 +13,7 @@ export function ProductGallery({
 }) {
   const gallery = images.length > 0 ? images : [];
   const [active, setActive] = useState(0);
+  const t = useTranslations("productDetail");
 
   if (gallery.length === 0) {
     return (
@@ -39,7 +41,7 @@ export function ProductGallery({
               key={src + index}
               type="button"
               onClick={() => setActive(index)}
-              aria-label={`Снимка ${index + 1}`}
+              aria-label={t("imageLabel", { index: index + 1 })}
               className={`relative size-16 shrink-0 overflow-hidden rounded-lg border transition-colors ${
                 index === active
                   ? "border-navy-900"

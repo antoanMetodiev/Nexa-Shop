@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 
 export function Newsletter() {
+  const t = useTranslations("home.newsletter");
   const [email, setEmail] = useState("");
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
 
@@ -23,17 +25,12 @@ export function Newsletter() {
           <span className="flex size-12 items-center justify-center rounded-full bg-navy-800 text-white">
             <Mail className="size-5" />
           </span>
-          <h2 className="text-2xl font-bold text-white">
-            Бъди в течение с Nexa
-          </h2>
-          <p className="text-sm text-navy-300">
-            Абонирай се за нашия бюлетин и получавай новини за нови продукти
-            и ексклузивни промоции.
-          </p>
+          <h2 className="text-2xl font-bold text-white">{t("heading")}</h2>
+          <p className="text-sm text-navy-300">{t("subheading")}</p>
 
           {submittedEmail ? (
             <p className="rounded-full bg-navy-800 px-5 py-3 text-sm font-medium text-white">
-              Благодарим! Ще се чуем скоро на {submittedEmail}.
+              {t("thanks", { email: submittedEmail })}
             </p>
           ) : (
             <form
@@ -45,14 +42,14 @@ export function Newsletter() {
                 required
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                placeholder="Твоят имейл адрес"
+                placeholder={t("placeholder")}
                 className="w-full flex-1 rounded-full border border-navy-700 bg-navy-900 px-5 py-3 text-sm text-white placeholder:text-navy-400 focus:border-navy-400 focus:outline-none"
               />
               <button
                 type="submit"
                 className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-navy-100"
               >
-                Абонирай се
+                {t("subscribe")}
               </button>
             </form>
           )}

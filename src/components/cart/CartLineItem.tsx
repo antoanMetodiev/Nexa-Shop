@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/products";
 import type { CartItem } from "@/lib/cart-context";
 
@@ -13,6 +14,8 @@ export function CartLineItem({
   onUpdateQuantity: (quantity: number) => void;
   onRemove: () => void;
 }) {
+  const t = useTranslations("cart");
+
   return (
     <div className="flex gap-4 border-b border-navy-100 py-5 last:border-none">
       <Link
@@ -39,7 +42,7 @@ export function CartLineItem({
           <button
             type="button"
             onClick={onRemove}
-            aria-label="Премахни от кошницата"
+            aria-label={t("remove")}
             className="shrink-0 rounded-full p-1.5 text-navy-400 transition-colors hover:bg-navy-50 hover:text-navy-900"
           >
             <Trash2 className="size-4" />
@@ -51,7 +54,7 @@ export function CartLineItem({
             <button
               type="button"
               onClick={() => onUpdateQuantity(item.quantity - 1)}
-              aria-label="Намали количеството"
+              aria-label={t("decreaseQuantity")}
               className="flex size-9 items-center justify-center text-navy-700"
             >
               <Minus className="size-3.5" />
@@ -62,7 +65,7 @@ export function CartLineItem({
             <button
               type="button"
               onClick={() => onUpdateQuantity(item.quantity + 1)}
-              aria-label="Увеличи количеството"
+              aria-label={t("increaseQuantity")}
               className="flex size-9 items-center justify-center text-navy-700"
             >
               <Plus className="size-3.5" />
@@ -75,7 +78,7 @@ export function CartLineItem({
             </p>
             {item.quantity > 1 && (
               <p className="text-xs text-navy-400">
-                {formatPrice(item.price)} / бр.
+                {t("perUnit", { price: formatPrice(item.price) })}
               </p>
             )}
           </div>

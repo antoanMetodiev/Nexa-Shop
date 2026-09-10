@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { buildProductsHref, type FlatParams } from "@/lib/filter-url";
 
 function pageNumbers(current: number, total: number): (number | "ellipsis")[] {

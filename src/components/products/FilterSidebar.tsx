@@ -1,5 +1,6 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Star } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import {
   buildProductsHref,
   toggleListValue,
@@ -61,18 +62,21 @@ function FilterCheckbox({
 }
 
 export function FilterSidebar({
+  locale,
   flat,
   filters,
   categories,
   brands,
   priceBounds,
 }: {
+  locale: string;
   flat: FlatParams;
   filters: ProductsFilters;
   categories: CategoryCount[];
   brands: BrandCount[];
   priceBounds: { min: number; max: number };
 }) {
+  const t = useTranslations("products.filters");
   const hasActiveFilters =
     filters.category.length > 0 ||
     filters.brand.length > 0 ||
@@ -83,20 +87,22 @@ export function FilterSidebar({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-navy-950">Филтри</h2>
+        <h2 className="text-sm font-semibold text-navy-950">
+          {t("heading")}
+        </h2>
         {hasActiveFilters && (
           <Link
             href="/products"
             className="text-xs font-medium text-navy-500 hover:text-navy-950"
           >
-            Изчисти всички
+            {t("clearAll")}
           </Link>
         )}
       </div>
 
       <section className="flex flex-col gap-1 border-b border-navy-100 pb-6">
         <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-navy-400">
-          Категория
+          {t("category")}
         </h3>
         {categories.map((category) => (
           <FilterCheckbox
@@ -113,9 +119,13 @@ export function FilterSidebar({
 
       <section className="flex flex-col gap-3 border-b border-navy-100 pb-6">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-navy-400">
-          Цена
+          {t("price")}
         </h3>
-        <form method="get" action="/products" className="flex items-center gap-2">
+        <form
+          method="get"
+          action={`/${locale}/products`}
+          className="flex items-center gap-2"
+        >
           {flat.category && <input type="hidden" name="category" value={flat.category} />}
           {flat.brand && <input type="hidden" name="brand" value={flat.brand} />}
           {flat.rating && <input type="hidden" name="rating" value={flat.rating} />}
@@ -141,14 +151,14 @@ export function FilterSidebar({
             type="submit"
             className="shrink-0 rounded-md bg-navy-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-navy-800"
           >
-            OK
+            {t("apply")}
           </button>
         </form>
       </section>
 
       <section className="flex flex-col gap-1 border-b border-navy-100 pb-6">
         <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-navy-400">
-          Рейтинг
+          {t("rating")}
         </h3>
         {RATING_OPTIONS.map((rating) => {
           const checked = filters.minRating === rating;
@@ -182,7 +192,7 @@ export function FilterSidebar({
                   />
                 ))}
               </span>
-              <span className="text-navy-600">и нагоре</span>
+              <span className="text-navy-600">{t("andUp")}</span>
             </Link>
           );
         })}
@@ -190,7 +200,7 @@ export function FilterSidebar({
 
       <section className="flex max-h-72 flex-col gap-1 overflow-y-auto pr-1">
         <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-navy-400">
-          Бранд
+          {t("brand")}
         </h3>
         {brands.map((brand) => (
           <FilterCheckbox

@@ -1,5 +1,6 @@
-import Link from "next/link";
 import type { SVGProps } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { SITE_NAME } from "@/lib/constants";
 
@@ -29,36 +30,38 @@ function XIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-const FOOTER_COLUMNS = [
-  {
-    title: "Пазаруване",
-    links: [
-      { label: "Всички продукти", href: "/products" },
-      { label: "Категории", href: "/categories" },
-      { label: "Промоции", href: "/deals" },
-      { label: "Любими продукти", href: "/wishlist" },
-    ],
-  },
-  {
-    title: "Помощ",
-    links: [
-      { label: "Контакти", href: "/contact" },
-      { label: "Често задавани въпроси", href: "/faq" },
-      { label: "Доставка и връщане", href: "/shipping-returns" },
-      { label: "Проследи поръчка", href: "/account/orders" },
-    ],
-  },
-  {
-    title: "Компания",
-    links: [
-      { label: "За нас", href: "/about" },
-      { label: "Условия за ползване", href: "/terms" },
-      { label: "Политика за поверителност", href: "/privacy" },
-    ],
-  },
-];
-
 export function Footer() {
+  const t = useTranslations("footer");
+
+  const footerColumns = [
+    {
+      title: t("shoppingHeading"),
+      links: [
+        { label: t("allProducts"), href: "/products" },
+        { label: t("categories"), href: "/categories" },
+        { label: t("deals"), href: "/deals" },
+        { label: t("wishlist"), href: "/wishlist" },
+      ],
+    },
+    {
+      title: t("helpHeading"),
+      links: [
+        { label: t("contact"), href: "/contact" },
+        { label: t("faq"), href: "/faq" },
+        { label: t("shipping"), href: "/shipping-returns" },
+        { label: t("trackOrder"), href: "/account/orders" },
+      ],
+    },
+    {
+      title: t("companyHeading"),
+      links: [
+        { label: t("about"), href: "/about" },
+        { label: t("terms"), href: "/terms" },
+        { label: t("privacy"), href: "/privacy" },
+      ],
+    },
+  ];
+
   return (
     <footer className="bg-navy-950 text-navy-200">
       <Container>
@@ -67,10 +70,7 @@ export function Footer() {
             <span className="text-xl font-bold tracking-tight text-white">
               {SITE_NAME.toUpperCase()}
             </span>
-            <p className="max-w-xs text-sm text-navy-300">
-              Онлайн магазин за качествени продукти на достъпни цени —
-              бързо, сигурно и удобно.
-            </p>
+            <p className="max-w-xs text-sm text-navy-300">{t("tagline")}</p>
             <div className="flex items-center gap-3 pt-1">
               <a
                 href="#"
@@ -96,7 +96,7 @@ export function Footer() {
             </div>
           </div>
 
-          {FOOTER_COLUMNS.map((column) => (
+          {footerColumns.map((column) => (
             <div key={column.title} className="flex flex-col gap-3">
               <h3 className="text-sm font-semibold text-white">
                 {column.title}
@@ -118,10 +118,8 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-navy-800 py-6 text-xs text-navy-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {SITE_NAME}. Всички права запазени.
-          </p>
-          <p>Продуктови данни: DummyJSON (демо съдържание)</p>
+          <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+          <p>{t("dataNote")}</p>
         </div>
       </Container>
     </footer>

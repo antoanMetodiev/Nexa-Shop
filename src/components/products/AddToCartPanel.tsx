@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Check, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 
@@ -18,6 +19,7 @@ export function AddToCartPanel({
   stock: number;
 }) {
   const { addItem } = useCart();
+  const t = useTranslations("productDetail");
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const outOfStock = stock <= 0;
@@ -35,7 +37,7 @@ export function AddToCartPanel({
           type="button"
           onClick={() => setQuantity((q) => Math.max(1, q - 1))}
           disabled={outOfStock}
-          aria-label="Намали количеството"
+          aria-label={t("decreaseQuantity")}
           className="flex size-11 items-center justify-center text-navy-700 disabled:opacity-40"
         >
           <Minus className="size-4" />
@@ -47,7 +49,7 @@ export function AddToCartPanel({
           type="button"
           onClick={() => setQuantity((q) => Math.min(stock, q + 1))}
           disabled={outOfStock}
-          aria-label="Увеличи количеството"
+          aria-label={t("increaseQuantity")}
           className="flex size-11 items-center justify-center text-navy-700 disabled:opacity-40"
         >
           <Plus className="size-4" />
@@ -61,16 +63,16 @@ export function AddToCartPanel({
         className="flex flex-1 items-center justify-center gap-2 rounded-full bg-navy-900 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-navy-200 disabled:text-navy-400"
       >
         {outOfStock ? (
-          "Изчерпан"
+          t("outOfStock")
         ) : added ? (
           <>
             <Check className="size-4" />
-            Добавено
+            {t("added")}
           </>
         ) : (
           <>
             <ShoppingBag className="size-4" />
-            Добави в кошницата
+            {t("addToCart")}
           </>
         )}
       </button>
