@@ -103,7 +103,10 @@ export default async function SearchPage({
               </div>
             ) : (
               <>
-                <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+                <StaggerGrid
+                  key={`${q}-${page}`}
+                  className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4"
+                >
                   {products.map((product) => (
                     <StaggerItem key={product.id}>
                       <ProductCard product={product} />
