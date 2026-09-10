@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { CartView } from "@/components/cart/CartView";
+import { getStoreSettings } from "@/lib/settings";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("cart");
@@ -10,9 +11,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CartPage() {
-  const [t, tBreadcrumb] = await Promise.all([
+  const [t, tBreadcrumb, settings] = await Promise.all([
     getTranslations("cart"),
     getTranslations("breadcrumb"),
+    getStoreSettings(),
   ]);
 
   return (
@@ -30,7 +32,7 @@ export default async function CartPage() {
           {t("title")}
         </h1>
 
-        <CartView />
+        <CartView freeShippingThreshold={settings.freeShippingThreshold} />
       </Container>
     </div>
   );

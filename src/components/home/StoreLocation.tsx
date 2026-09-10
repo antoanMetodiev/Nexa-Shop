@@ -1,10 +1,14 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { MapEmbed } from "@/components/shared/MapEmbed";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { getStoreSettings } from "@/lib/settings";
 
-export function StoreLocation() {
-  const t = useTranslations("home.location");
+export async function StoreLocation() {
+  const [t, settings] = await Promise.all([
+    getTranslations("home.location"),
+    getStoreSettings(),
+  ]);
 
   return (
     <section className="border-t border-navy-100 bg-white py-16">
@@ -17,7 +21,7 @@ export function StoreLocation() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <MapEmbed aspectClassName="aspect-[16/9]" />
+          <MapEmbed address={settings.address} aspectClassName="aspect-[16/9]" />
         </FadeIn>
       </Container>
     </section>

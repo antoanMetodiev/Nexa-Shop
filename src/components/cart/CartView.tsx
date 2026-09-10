@@ -9,7 +9,11 @@ import { CartLineItem } from "@/components/cart/CartLineItem";
 import { OrderSummary } from "@/components/cart/OrderSummary";
 import { FadeIn } from "@/components/motion/FadeIn";
 
-export function CartView() {
+export function CartView({
+  freeShippingThreshold,
+}: {
+  freeShippingThreshold: number;
+}) {
   const { items, hydrated, updateQuantity, removeItem, clearCart, totalPrice } =
     useCart();
   const t = useTranslations("cart");
@@ -84,7 +88,10 @@ export function CartView() {
         </div>
       </div>
 
-      <OrderSummary subtotal={totalPrice} />
+      <OrderSummary
+        subtotal={totalPrice}
+        freeShippingThreshold={freeShippingThreshold}
+      />
     </div>
   );
 }

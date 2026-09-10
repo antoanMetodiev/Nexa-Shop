@@ -4,13 +4,7 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { MapEmbed } from "@/components/shared/MapEmbed";
-import {
-  STORE_ADDRESS,
-  STORE_EMAIL,
-  STORE_MAPS_LINK,
-  STORE_PHONE,
-  STORE_PHONE_HREF,
-} from "@/lib/constants";
+import { getStoreSettings } from "@/lib/settings";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
@@ -20,29 +14,33 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const [t, tBreadcrumb] = await Promise.all([
+  const [t, tBreadcrumb, settings] = await Promise.all([
     getTranslations("contactPage"),
     getTranslations("breadcrumb"),
+    getStoreSettings(),
   ]);
+
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`;
+  const phoneHref = settings.contactPhone.replace(/[^\d+]/g, "");
 
   const infoRows = [
     {
       icon: MapPin,
       label: t("addressLabel"),
-      value: STORE_ADDRESS,
-      href: STORE_MAPS_LINK,
+      value: settings.address,
+      href: mapsLink,
     },
     {
       icon: Mail,
       label: t("emailLabel"),
-      value: STORE_EMAIL,
-      href: `mailto:${STORE_EMAIL}`,
+      value: settings.contactEmail,
+      href: `mailto:${settings.contactEmail}`,
     },
     {
       icon: Phone,
       label: t("phoneLabel"),
-      value: STORE_PHONE,
-      href: `tel:${STORE_PHONE_HREF}`,
+      value: settings.contactPhone,
+      href: `tel:${phoneHref}`,
     },
     {
       icon: Clock,
@@ -116,7 +114,7 @@ export default async function ContactPage() {
           </StaggerGrid>
 
           <FadeIn delay={0.15}>
-            <MapEmbed />
+            <MapEmbed address={settings.address} />
           </FadeIn>
         </div>
       </Container>

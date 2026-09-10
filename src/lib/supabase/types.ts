@@ -37,6 +37,63 @@ export type WishlistItemRow = {
   created_at: string;
 };
 
+export type OrderStatus =
+  | "pending"
+  | "paid"
+  | "fulfilled"
+  | "cancelled"
+  | "refunded";
+
+export type OrderRow = {
+  id: number;
+  user_id: string | null;
+  email: string;
+  status: OrderStatus;
+  subtotal: number;
+  shipping: number;
+  total: number;
+  currency: string;
+  shipping_address: Record<string, unknown> | null;
+  stripe_payment_intent_id: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type OrderItemRow = {
+  id: number;
+  order_id: number;
+  product_id: number | null;
+  title: string;
+  thumbnail: string | null;
+  unit_price: number;
+  quantity: number;
+  created_at: string;
+};
+
+export type DiscountCodeRow = {
+  id: number;
+  code: string;
+  type: "percentage" | "fixed";
+  value: number;
+  active: boolean;
+  starts_at: string | null;
+  expires_at: string | null;
+  usage_limit: number | null;
+  used_count: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StoreSettingsRow = {
+  id: number;
+  store_name: string;
+  contact_email: string;
+  contact_phone: string;
+  address: string;
+  free_shipping_threshold: number;
+  updated_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -65,6 +122,66 @@ export type Database = {
             id?: number;
             created_at?: string;
           }
+        >;
+        Relationships: [];
+      };
+      orders: {
+        Row: OrderRow;
+        Insert: Omit<OrderRow, "id" | "created_at" | "updated_at"> & {
+          id?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<
+          Omit<OrderRow, "id" | "created_at" | "updated_at"> & {
+            id?: number;
+            created_at?: string;
+            updated_at?: string;
+          }
+        >;
+        Relationships: [];
+      };
+      order_items: {
+        Row: OrderItemRow;
+        Insert: Omit<OrderItemRow, "id" | "created_at"> & {
+          id?: number;
+          created_at?: string;
+        };
+        Update: Partial<
+          Omit<OrderItemRow, "id" | "created_at"> & {
+            id?: number;
+            created_at?: string;
+          }
+        >;
+        Relationships: [];
+      };
+      discount_codes: {
+        Row: DiscountCodeRow;
+        Insert: Omit<
+          DiscountCodeRow,
+          "id" | "created_at" | "updated_at" | "used_count"
+        > & {
+          id?: number;
+          created_at?: string;
+          updated_at?: string;
+          used_count?: number;
+        };
+        Update: Partial<
+          Omit<DiscountCodeRow, "id" | "created_at" | "updated_at"> & {
+            id?: number;
+            created_at?: string;
+            updated_at?: string;
+          }
+        >;
+        Relationships: [];
+      };
+      store_settings: {
+        Row: StoreSettingsRow;
+        Insert: Omit<StoreSettingsRow, "updated_at"> & {
+          updated_at?: string;
+        };
+        Update: Partial<
+          Omit<StoreSettingsRow, "updated_at"> & { updated_at?: string }
         >;
         Relationships: [];
       };

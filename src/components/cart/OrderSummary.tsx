@@ -6,12 +6,17 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/products";
 
-const FREE_SHIPPING_THRESHOLD = 100;
 const SHIPPING_FEE = 9.99;
 
-export function OrderSummary({ subtotal }: { subtotal: number }) {
+export function OrderSummary({
+  subtotal,
+  freeShippingThreshold,
+}: {
+  subtotal: number;
+  freeShippingThreshold: number;
+}) {
   const t = useTranslations("cart.summary");
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shipping = subtotal >= freeShippingThreshold ? 0 : SHIPPING_FEE;
   const total = subtotal + shipping;
 
   return (
@@ -36,7 +41,7 @@ export function OrderSummary({ subtotal }: { subtotal: number }) {
         {shipping > 0 && (
           <p className="text-xs text-navy-400">
             {t("freeShippingNote", {
-              amount: formatPrice(FREE_SHIPPING_THRESHOLD),
+              amount: formatPrice(freeShippingThreshold),
             })}
           </p>
         )}

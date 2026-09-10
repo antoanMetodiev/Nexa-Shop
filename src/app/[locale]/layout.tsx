@@ -31,6 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
+    icons: {
+      icon: "/nexa-logo-icon.png",
+    },
   };
 }
 
