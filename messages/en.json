@@ -182,6 +182,16 @@
     "emptySubtitle": "Add products while you shop so you can find them easily later.",
     "emptyCta": "Browse products"
   },
+  "search": {
+    "placeholder": "Search products...",
+    "close": "Close search",
+    "startTyping": "Start typing to search products",
+    "noResults": "No results found for \"{query}\"",
+    "viewAll": "View all results for \"{query}\"",
+    "resultsTitle": "Results for \"{query}\"",
+    "resultsCount": "{count, plural, one {# product} other {# products}}",
+    "searchAgainPlaceholder": "Refine your search..."
+  },
   "notFound": {
     "badge": "404 error",
     "title": "Page not found",

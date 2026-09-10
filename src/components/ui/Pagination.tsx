@@ -21,21 +21,27 @@ function pageNumbers(current: number, total: number): (number | "ellipsis")[] {
   return result;
 }
 
-/** Simple single-param (`?page=`) pagination for listings without other filters. */
+/** Simple pagination (`?page=`, plus any extraParams to preserve) for listings without full filter state. */
 export function Pagination({
   basePath,
   currentPage,
   totalPages,
+  extraParams,
 }: {
   basePath: string;
   currentPage: number;
   totalPages: number;
+  extraParams?: Record<string, string>;
 }) {
   if (totalPages <= 1) return null;
 
   const pages = pageNumbers(currentPage, totalPages);
-  const hrefFor = (page: number) =>
-    page <= 1 ? basePath : `${basePath}?page=${page}`;
+  const hrefFor = (page: number) => {
+    const params = new URLSearchParams(extraParams);
+    if (page > 1) params.set("page", String(page));
+    const qs = params.toString();
+    return qs ? `${basePath}?${qs}` : basePath;
+  };
 
   return (
     <nav className="flex items-center justify-center gap-1.5 pt-4">

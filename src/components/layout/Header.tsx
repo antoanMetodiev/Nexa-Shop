@@ -2,10 +2,11 @@
 
 import { Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { SearchModal } from "@/components/layout/SearchModal";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
@@ -55,13 +56,7 @@ export function Header() {
             >
               <LanguageSwitcher />
             </Suspense>
-            <Link
-              href="/search"
-              aria-label={t("search")}
-              className="rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50"
-            >
-              <Search className="size-5" />
-            </Link>
+            <SearchModal />
             <Link
               href="/wishlist"
               aria-label={t("wishlist")}

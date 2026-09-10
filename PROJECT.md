@@ -99,6 +99,9 @@
 - [x] Страница „За нас" (`/about`) — история, реални статистики от Supabase (продукти/категории/брандове), values секция (преизползва `UspBar`), CTA
 - [x] Wishlist — localStorage сега (`src/lib/wishlist-context.tsx`, огледава `cart-context.tsx`), сърце бутон на всяка продуктова карта + детайлна страница, брояч в header-а, страница `/wishlist`. `wishlist_items` таблица в Supabase вече съществува (миграция `0003`, RLS enabled без policies — заключена, безопасна по подразбиране) и `src/lib/wishlist-db.ts` носи готови CRUD функции за DB-версията — предстои да се свържат, когато има Clerk потребителски id
 - [x] Страница „Контакти" (`/contact`) — адрес/имейл/телефон/работно време + Google Maps (прост iframe embed, без API ключ). Адресът е **placeholder** (1 Vitosha Blvd, Sofia) в `src/lib/constants.ts` (`STORE_ADDRESS` и др.) — смени го с реалния, когато се знае
+- [x] Google Maps секция и на началната страница ("Посети ни", преди Newsletter) — споделен `src/components/shared/MapEmbed.tsx`, ползван и от `/contact`
+- [x] `/products` и `/deals` показват по 24 продукта на страница (`PRODUCTS_PAGE_SIZE` в `src/lib/products.ts`)
+- [x] Търсене — live search модал от header-а (`src/components/layout/SearchModal.tsx`, debounce 250ms, показва топ продукти преди да пишеш), пълна страница с резултати `/search?q=` с пагинация. Търси по `title`/`brand` с `ILIKE`, ускорено от `pg_trgm` GIN индекси (миграция `0004`) — потвърдено с `EXPLAIN`, че се ползват
 - [ ] Checkout страница (`/checkout`) — линкът от кошницата вече сочи натам, страницата предстои
 - [ ] Clerk автентикация
 - [ ] Stripe интеграция

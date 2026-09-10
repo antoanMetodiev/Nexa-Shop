@@ -206,6 +206,61 @@ export async function getProducts(
   return { products: data, total: count ?? 0 };
 }
 
+/**
+ * PostgREST's `.or()` filter string uses "," and "()" as syntax, so strip
+ * them from user input before interpolating — otherwise a query containing
+ * either breaks the filter (or, worse, changes its structure).
+ */
+function sanitizeSearchTerm(query: string): string {
+  return query.trim().replace(/[,()]/g, " ");
+}
+
+export async function searchProducts(
+  query: string,
+  limit = 6,
+): Promise<Product[]> {
+  const term = sanitizeSearchTerm(query);
+  if (!term) return [];
+
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .or(`title.ilike.%${term}%,brand.ilike.%${term}%`)
+    .order("rating", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) {
+    console.error("searchProducts failed:", error?.message);
+    return [];
+  }
+  return data;
+}
+
+export async function searchProductsPaginated(
+  query: string,
+  page = 1,
+): Promise<ProductsResult> {
+  const term = sanitizeSearchTerm(query);
+  if (!term) return { products: [], total: 0 };
+
+  const pageIndex = page > 0 ? page : 1;
+  const from = (pageIndex - 1) * PRODUCTS_PAGE_SIZE;
+  const to = from + PRODUCTS_PAGE_SIZE - 1;
+
+  const { data, error, count } = await supabase
+    .from("products")
+    .select("*", { count: "exact" })
+    .or(`title.ilike.%${term}%,brand.ilike.%${term}%`)
+    .order("rating", { ascending: false })
+    .range(from, to);
+
+  if (error || !data) {
+    console.error("searchProductsPaginated failed:", error?.message);
+    return { products: [], total: 0 };
+  }
+  return { products: data, total: count ?? 0 };
+}
+
 export async function getDealsProducts(page = 1): Promise<ProductsResult> {
   const pageIndex = page > 0 ? page : 1;
   const from = (pageIndex - 1) * PRODUCTS_PAGE_SIZE;
