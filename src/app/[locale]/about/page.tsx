@@ -9,6 +9,8 @@ import {
   getBrandsWithCounts,
   getProductsCount,
 } from "@/lib/products";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("aboutPage");
@@ -41,7 +43,7 @@ export default async function AboutPage() {
           className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1f2e4d,transparent_60%)]"
         />
         <Container>
-          <div className="relative flex flex-col items-start gap-4 py-16 sm:py-20">
+          <FadeIn className="relative flex flex-col items-start gap-4 py-16 sm:py-20">
             <nav className="text-xs text-navy-300">
               <Link href="/" className="hover:text-white">
                 {tBreadcrumb("home")}
@@ -60,14 +62,14 @@ export default async function AboutPage() {
             <p className="max-w-xl text-base text-navy-200 sm:text-lg">
               {t("subtitle")}
             </p>
-          </div>
+          </FadeIn>
         </Container>
       </section>
 
       <section className="py-16">
         <Container>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1fr]">
-            <div>
+            <FadeIn>
               <h2 className="text-2xl font-bold tracking-tight text-navy-950">
                 {t("storyHeading")}
               </h2>
@@ -77,36 +79,38 @@ export default async function AboutPage() {
               <p className="mt-4 text-sm leading-relaxed text-navy-600">
                 {t("storyBody2")}
               </p>
-            </div>
+            </FadeIn>
 
-            <div className="grid grid-cols-3 gap-4 self-start rounded-2xl border border-navy-100 p-6 sm:gap-6 sm:p-8">
+            <StaggerGrid className="grid grid-cols-3 gap-4 self-start rounded-2xl border border-navy-100 p-6 sm:gap-6 sm:p-8">
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
+                <StaggerItem key={stat.label} className="text-center">
                   <p className="text-2xl font-bold text-navy-950 sm:text-3xl">
                     {stat.value}+
                   </p>
                   <p className="mt-1 text-xs text-navy-500 sm:text-sm">
                     {stat.label}
                   </p>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerGrid>
           </div>
         </Container>
       </section>
 
       <section className="border-t border-navy-100 py-16">
         <Container>
-          <h2 className="mb-8 text-2xl font-bold tracking-tight text-navy-950">
-            {t("valuesHeading")}
-          </h2>
+          <FadeIn>
+            <h2 className="mb-8 text-2xl font-bold tracking-tight text-navy-950">
+              {t("valuesHeading")}
+            </h2>
+          </FadeIn>
         </Container>
         <UspBar />
       </section>
 
       <section className="py-16">
         <Container>
-          <div className="flex flex-col items-center gap-4 rounded-2xl bg-navy-900 px-8 py-14 text-center sm:px-16">
+          <FadeIn className="flex flex-col items-center gap-4 rounded-2xl bg-navy-900 px-8 py-14 text-center sm:px-16">
             <h2 className="max-w-xl text-2xl font-bold text-white sm:text-3xl">
               {t("ctaHeading")}
             </h2>
@@ -115,12 +119,12 @@ export default async function AboutPage() {
             </p>
             <Link
               href="/products"
-              className="mt-2 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-navy-100"
+              className="mt-2 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-all hover:scale-[1.03] hover:bg-navy-100 active:scale-95"
             >
               {t("ctaButton")}
               <ArrowRight className="size-4" />
             </Link>
-          </div>
+          </FadeIn>
         </Container>
       </section>
     </div>

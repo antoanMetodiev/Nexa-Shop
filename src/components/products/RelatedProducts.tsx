@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { ProductCard } from "@/components/product/ProductCard";
 import type { Product } from "@/lib/products";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export function RelatedProducts({ products }: { products: Product[] }) {
   const t = useTranslations("productDetail");
@@ -12,11 +13,13 @@ export function RelatedProducts({ products }: { products: Product[] }) {
       <h2 className="mb-5 text-xl font-bold tracking-tight text-navy-950">
         {t("relatedHeading")}
       </h2>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <StaggerItem key={product.id}>
+            <ProductCard product={product} />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGrid>
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "motion/react";
 import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
@@ -10,6 +11,25 @@ import { SearchModal } from "@/components/layout/SearchModal";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
+
+function CountBadge({ count }: { count: number }) {
+  return (
+    <AnimatePresence>
+      {count > 0 && (
+        <motion.span
+          key={count}
+          initial={{ scale: 0.4, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.4, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 500, damping: 18 }}
+          className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-navy-900 text-[10px] font-semibold text-white"
+        >
+          {count > 9 ? "9+" : count}
+        </motion.span>
+      )}
+    </AnimatePresence>
+  );
+}
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,11 +83,7 @@ export function Header() {
               className="relative hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
             >
               <Heart className="size-5" />
-              {wishlistCount > 0 && (
-                <span className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-navy-900 text-[10px] font-semibold text-white">
-                  {wishlistCount > 9 ? "9+" : wishlistCount}
-                </span>
-              )}
+              <CountBadge count={wishlistCount} />
             </Link>
             <Link
               href="/sign-in"
@@ -82,41 +98,45 @@ export function Header() {
               className="relative rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50"
             >
               <ShoppingBag className="size-5" />
-              {totalCount > 0 && (
-                <span className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-navy-900 text-[10px] font-semibold text-white">
-                  {totalCount > 9 ? "9+" : totalCount}
-                </span>
-              )}
+              <CountBadge count={totalCount} />
             </Link>
           </div>
         </div>
       </Container>
 
-      {menuOpen && (
-        <nav className="border-t border-navy-100 bg-white md:hidden">
-          <Container>
-            <div className="flex flex-col py-2">
-              {MAIN_NAV.map((item) => (
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-navy-100 bg-white md:hidden"
+          >
+            <Container>
+              <div className="flex flex-col py-2">
+                {MAIN_NAV.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="border-b border-navy-50 py-3 text-sm font-medium text-navy-800 last:border-none"
+                  >
+                    {tNav(item.key)}
+                  </Link>
+                ))}
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  href="/sign-in"
                   onClick={() => setMenuOpen(false)}
-                  className="border-b border-navy-50 py-3 text-sm font-medium text-navy-800 last:border-none"
+                  className="py-3 text-sm font-medium text-navy-800"
                 >
-                  {tNav(item.key)}
+                  {t("signIn")}
                 </Link>
-              ))}
-              <Link
-                href="/sign-in"
-                onClick={() => setMenuOpen(false)}
-                className="py-3 text-sm font-medium text-navy-800"
-              >
-                {t("signIn")}
-              </Link>
-            </div>
-          </Container>
-        </nav>
-      )}
+              </div>
+            </Container>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

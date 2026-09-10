@@ -11,6 +11,8 @@ import {
   STORE_PHONE,
   STORE_PHONE_HREF,
 } from "@/lib/constants";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contactPage");
@@ -61,17 +63,19 @@ export default async function ContactPage() {
           <span className="text-navy-800">{t("title")}</span>
         </nav>
 
-        <h1 className="text-3xl font-bold tracking-tight text-navy-950">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-sm text-navy-500">{t("subtitle")}</p>
+        <FadeIn>
+          <h1 className="text-3xl font-bold tracking-tight text-navy-950">
+            {t("title")}
+          </h1>
+          <p className="mt-2 text-sm text-navy-500">{t("subtitle")}</p>
+        </FadeIn>
 
         <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <div className="flex flex-col gap-6">
+          <StaggerGrid className="flex flex-col gap-6">
             {infoRows.map((row) => {
               const Icon = row.icon;
               const content = (
-                <div className="flex items-start gap-4 rounded-xl border border-navy-100 p-4">
+                <div className="flex items-start gap-4 rounded-xl border border-navy-100 p-4 transition-all hover:-translate-y-0.5 hover:shadow-md">
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-navy-50 text-navy-800">
                     <Icon className="size-5" />
                   </span>
@@ -86,27 +90,34 @@ export default async function ContactPage() {
                 </div>
               );
 
-              return row.href ? (
-                <a
-                  key={row.label}
-                  href={row.href}
-                  target={row.href.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    row.href.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="transition-colors hover:border-navy-300"
-                >
-                  {content}
-                </a>
-              ) : (
-                <div key={row.label}>{content}</div>
+              return (
+                <StaggerItem key={row.label}>
+                  {row.href ? (
+                    <a
+                      href={row.href}
+                      target={
+                        row.href.startsWith("http") ? "_blank" : undefined
+                      }
+                      rel={
+                        row.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      className="block transition-colors hover:border-navy-300"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    content
+                  )}
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerGrid>
 
-          <MapEmbed />
+          <FadeIn delay={0.15}>
+            <MapEmbed />
+          </FadeIn>
         </div>
       </Container>
     </div>

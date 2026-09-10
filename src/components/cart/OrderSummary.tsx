@@ -1,4 +1,7 @@
+"use client";
+
 import { useTranslations } from "next-intl";
+import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/products";
@@ -43,14 +46,20 @@ export function OrderSummary({ subtotal }: { subtotal: number }) {
         <span className="text-sm font-semibold text-navy-950">
           {t("total")}
         </span>
-        <span className="text-xl font-bold text-navy-950">
+        <motion.span
+          key={total}
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-xl font-bold text-navy-950"
+        >
           {formatPrice(total)}
-        </span>
+        </motion.span>
       </div>
 
       <Link
         href="/checkout"
-        className="flex items-center justify-center gap-2 rounded-full bg-navy-900 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800"
+        className="flex items-center justify-center gap-2 rounded-full bg-navy-900 py-3.5 text-sm font-semibold text-white transition-all hover:scale-[1.02] hover:bg-navy-800 active:scale-95"
       >
         {t("checkout")}
         <ArrowRight className="size-4" />

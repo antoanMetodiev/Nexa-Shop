@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { motion } from "motion/react";
 import { Heart } from "lucide-react";
 import { useWishlist } from "@/lib/wishlist-context";
 
@@ -22,8 +23,9 @@ export function WishlistButton({
   const active = isWishlisted(productId);
 
   return (
-    <button
+    <motion.button
       type="button"
+      whileTap={{ scale: 0.85 }}
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -33,9 +35,17 @@ export function WishlistButton({
       aria-label={active ? t("remove") : t("add")}
       className={`flex items-center justify-center rounded-full text-navy-700 transition-colors ${VARIANT_CLASSES[variant]}`}
     >
-      <Heart
-        className={`size-4 ${active ? "fill-navy-900 text-navy-900" : ""}`}
-      />
-    </button>
+      <motion.span
+        key={active ? "on" : "off"}
+        initial={{ scale: 0.6 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 500, damping: 15 }}
+        className="flex"
+      >
+        <Heart
+          className={`size-4 ${active ? "fill-navy-900 text-navy-900" : ""}`}
+        />
+      </motion.span>
+    </motion.button>
   );
 }

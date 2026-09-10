@@ -3,6 +3,8 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { ProductCard } from "@/components/product/ProductCard";
 import { getTopRatedProducts } from "@/lib/products";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export async function FeaturedProducts() {
   const [products, t] = await Promise.all([
@@ -15,7 +17,7 @@ export async function FeaturedProducts() {
   return (
     <section className="bg-navy-50/40 py-16">
       <Container>
-        <div className="mb-8 flex items-end justify-between">
+        <FadeIn className="mb-8 flex items-end justify-between">
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-navy-950">
               {t("heading")}
@@ -28,13 +30,15 @@ export async function FeaturedProducts() {
           >
             {t("viewAll")}
           </Link>
-        </div>
+        </FadeIn>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <StaggerItem key={product.id}>
+              <ProductCard product={product} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       </Container>
     </section>
   );

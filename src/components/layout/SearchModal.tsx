@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Loader2, Search, SearchX, X } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import {
@@ -144,8 +145,15 @@ export function SearchModal() {
         <Search className="size-5" />
       </button>
 
-      {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-[calc(100vw-2rem)] max-w-xs overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-xl sm:w-80">
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: -6 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: -6 }}
+            transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute right-0 top-full z-50 mt-2 w-[calc(100vw-2rem)] max-w-xs origin-top-right overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-xl sm:w-80"
+          >
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -221,8 +229,9 @@ export function SearchModal() {
               <ArrowRight className="size-3.5" />
             </button>
           )}
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

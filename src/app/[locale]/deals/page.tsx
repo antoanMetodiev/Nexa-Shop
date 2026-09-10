@@ -7,6 +7,8 @@ import { Pagination } from "@/components/ui/Pagination";
 import { ProductCard } from "@/components/product/ProductCard";
 import { getDealsProducts, PRODUCTS_PAGE_SIZE } from "@/lib/products";
 import type { RawSearchParams } from "@/lib/filter-url";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("dealsPage");
@@ -47,7 +49,7 @@ export default async function DealsPage({
           className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1f2e4d,transparent_60%)]"
         />
         <Container>
-          <div className="relative flex flex-col items-start gap-4 py-16">
+          <FadeIn className="relative flex flex-col items-start gap-4 py-16">
             <nav className="text-xs text-navy-300">
               <Link href="/" className="hover:text-white">
                 {tBreadcrumb("home")}
@@ -69,7 +71,7 @@ export default async function DealsPage({
             <p className="max-w-lg text-sm text-navy-200 sm:text-base">
               {t("subtitle")}
             </p>
-          </div>
+          </FadeIn>
         </Container>
       </section>
 
@@ -85,11 +87,13 @@ export default async function DealsPage({
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+              <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                 {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <StaggerItem key={product.id}>
+                    <ProductCard product={product} />
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerGrid>
               <Pagination
                 basePath="/deals"
                 currentPage={page}

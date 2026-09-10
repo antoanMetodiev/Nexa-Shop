@@ -22,6 +22,8 @@ import {
   PRODUCTS_PAGE_SIZE,
 } from "@/lib/products";
 import type { CategorySlug } from "@/i18n/category-slug";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("products");
@@ -99,7 +101,7 @@ export default async function ProductsPage({
           <span className="text-navy-800">{t("breadcrumb")}</span>
         </nav>
 
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <FadeIn className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-navy-950">
               {t("title")}
@@ -113,7 +115,7 @@ export default async function ProductsPage({
             <MobileFilterDrawer>{filterSidebar}</MobileFilterDrawer>
             <SortSelect flat={flat} value={filters.sort} />
           </div>
-        </div>
+        </FadeIn>
 
         <div className="mb-6">
           <ActiveFilterPills
@@ -133,11 +135,13 @@ export default async function ProductsPage({
               <EmptyState />
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+                <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                   {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <StaggerItem key={product.id}>
+                      <ProductCard product={product} />
+                    </StaggerItem>
                   ))}
-                </div>
+                </StaggerGrid>
                 <ProductsPagination
                   flat={flat}
                   currentPage={filters.page}

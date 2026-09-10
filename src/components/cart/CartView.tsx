@@ -1,11 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "motion/react";
 import { ShoppingBag } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useCart } from "@/lib/cart-context";
 import { CartLineItem } from "@/components/cart/CartLineItem";
 import { OrderSummary } from "@/components/cart/OrderSummary";
+import { FadeIn } from "@/components/motion/FadeIn";
 
 export function CartView() {
   const { items, hydrated, updateQuantity, removeItem, clearCart, totalPrice } =
@@ -23,7 +25,7 @@ export function CartView() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-navy-200 py-24 text-center">
+      <FadeIn className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-navy-200 py-24 text-center">
         <span className="flex size-14 items-center justify-center rounded-full bg-navy-50 text-navy-400">
           <ShoppingBag className="size-7" />
         </span>
@@ -37,7 +39,7 @@ export function CartView() {
         >
           {t("emptyCta")}
         </Link>
-      </div>
+      </FadeIn>
     );
   }
 
@@ -58,16 +60,27 @@ export function CartView() {
         </div>
 
         <div className="rounded-2xl border border-navy-100 px-5">
-          {items.map((item) => (
-            <CartLineItem
-              key={item.id}
-              item={item}
-              onUpdateQuantity={(quantity) =>
-                updateQuantity(item.id, quantity)
-              }
-              onRemove={() => removeItem(item.id)}
-            />
-          ))}
+          <AnimatePresence initial={false}>
+            {items.map((item) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="border-b border-navy-100 last:border-none"
+              >
+                <CartLineItem
+                  item={item}
+                  onUpdateQuantity={(quantity) =>
+                    updateQuantity(item.id, quantity)
+                  }
+                  onRemove={() => removeItem(item.id)}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
 

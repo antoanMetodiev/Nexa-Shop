@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "motion/react";
 import { Heart } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useWishlist } from "@/lib/wishlist-context";
 import { getProductsByIds, type Product } from "@/lib/products";
 import { ProductCard } from "@/components/product/ProductCard";
+import { FadeIn } from "@/components/motion/FadeIn";
 
 export function WishlistView() {
   const { ids, hydrated } = useWishlist();
@@ -57,7 +59,7 @@ export function WishlistView() {
 
   if (products.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-navy-200 py-24 text-center">
+      <FadeIn className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-navy-200 py-24 text-center">
         <span className="flex size-14 items-center justify-center rounded-full bg-navy-50 text-navy-400">
           <Heart className="size-7" />
         </span>
@@ -71,7 +73,7 @@ export function WishlistView() {
         >
           {t("emptyCta")}
         </Link>
-      </div>
+      </FadeIn>
     );
   }
 
@@ -81,9 +83,20 @@ export function WishlistView() {
         {t("itemsCount", { count: products.length })}
       </p>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        <AnimatePresence mode="popLayout">
+          {products.map((product) => (
+            <motion.div
+              key={product.id}
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <ProductCard product={product} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { motion } from "motion/react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/products";
@@ -17,7 +18,7 @@ export function CartLineItem({
   const t = useTranslations("cart");
 
   return (
-    <div className="flex gap-4 border-b border-navy-100 py-5 last:border-none">
+    <div className="flex gap-4 py-5">
       <Link
         href={`/products/${item.id}`}
         className="relative size-24 shrink-0 overflow-hidden rounded-xl border border-navy-100 bg-navy-50"
@@ -39,14 +40,15 @@ export function CartLineItem({
           >
             {item.title}
           </Link>
-          <button
+          <motion.button
             type="button"
+            whileTap={{ scale: 0.85 }}
             onClick={onRemove}
             aria-label={t("remove")}
             className="shrink-0 rounded-full p-1.5 text-navy-400 transition-colors hover:bg-navy-50 hover:text-navy-900"
           >
             <Trash2 className="size-4" />
-          </button>
+          </motion.button>
         </div>
 
         <div className="flex items-end justify-between">
@@ -55,18 +57,24 @@ export function CartLineItem({
               type="button"
               onClick={() => onUpdateQuantity(item.quantity - 1)}
               aria-label={t("decreaseQuantity")}
-              className="flex size-9 items-center justify-center text-navy-700"
+              className="flex size-9 items-center justify-center text-navy-700 transition-transform active:scale-90"
             >
               <Minus className="size-3.5" />
             </button>
-            <span className="w-7 text-center text-sm font-medium text-navy-950">
+            <motion.span
+              key={item.quantity}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.15 }}
+              className="w-7 text-center text-sm font-medium text-navy-950"
+            >
               {item.quantity}
-            </span>
+            </motion.span>
             <button
               type="button"
               onClick={() => onUpdateQuantity(item.quantity + 1)}
               aria-label={t("increaseQuantity")}
-              className="flex size-9 items-center justify-center text-navy-700"
+              className="flex size-9 items-center justify-center text-navy-700 transition-transform active:scale-90"
             >
               <Plus className="size-3.5" />
             </button>

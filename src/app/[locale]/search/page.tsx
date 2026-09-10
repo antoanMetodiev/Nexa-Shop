@@ -7,6 +7,8 @@ import { Pagination } from "@/components/ui/Pagination";
 import { ProductCard } from "@/components/product/ProductCard";
 import { searchProductsPaginated, PRODUCTS_PAGE_SIZE } from "@/lib/products";
 import type { RawSearchParams } from "@/lib/filter-url";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 function first(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
@@ -81,14 +83,14 @@ export default async function SearchPage({
 
         {q ? (
           <>
-            <div className="mb-6">
+            <FadeIn className="mb-6">
               <h1 className="text-2xl font-bold tracking-tight text-navy-950">
                 {t("resultsTitle", { query: q })}
               </h1>
               <p className="mt-1 text-sm text-navy-500">
                 {t("resultsCount", { count: total })}
               </p>
-            </div>
+            </FadeIn>
 
             {products.length === 0 ? (
               <div className="flex flex-col items-center gap-3 py-24 text-center">
@@ -101,11 +103,13 @@ export default async function SearchPage({
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+                <StaggerGrid className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                   {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <StaggerItem key={product.id}>
+                      <ProductCard product={product} />
+                    </StaggerItem>
                   ))}
-                </div>
+                </StaggerGrid>
                 <Pagination
                   basePath="/search"
                   currentPage={page}
