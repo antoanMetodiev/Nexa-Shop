@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
 import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
@@ -53,8 +54,16 @@ export function Header() {
 
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-navy-950"
+            className="flex items-center gap-2 text-xl font-bold tracking-tight text-navy-950"
           >
+            <Image
+              src="/site-logo.avif"
+              alt=""
+              width={39}
+              height={32}
+              priority
+              className="h-8 w-auto shrink-0"
+            />
             {SITE_NAME.toUpperCase()}
           </Link>
 
@@ -63,9 +72,10 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-navy-700 transition-colors hover:text-navy-950"
+                className="group relative py-1 text-sm font-medium text-navy-700 transition-colors duration-200 hover:text-navy-950"
               >
                 {tNav(item.key)}
+                <span className="pointer-events-none absolute inset-x-0 -bottom-0.5 h-[2px] origin-center scale-x-0 rounded-full bg-navy-900 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" />
               </Link>
             ))}
           </nav>
@@ -80,7 +90,7 @@ export function Header() {
             <Link
               href="/wishlist"
               aria-label={t("wishlist")}
-              className="relative hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
+              className="relative hidden rounded-full p-2 text-navy-900 transition-all duration-200 hover:scale-110 hover:bg-navy-50 active:scale-95 sm:inline-flex"
             >
               <Heart className="size-5" />
               <CountBadge count={wishlistCount} />
@@ -88,14 +98,14 @@ export function Header() {
             <Link
               href="/sign-in"
               aria-label={t("account")}
-              className="hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
+              className="hidden rounded-full p-2 text-navy-900 transition-all duration-200 hover:scale-110 hover:bg-navy-50 active:scale-95 sm:inline-flex"
             >
               <User className="size-5" />
             </Link>
             <Link
               href="/cart"
               aria-label={t("cart")}
-              className="relative rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50"
+              className="relative rounded-full p-2 text-navy-900 transition-all duration-200 hover:scale-110 hover:bg-navy-50 active:scale-95"
             >
               <ShoppingBag className="size-5" />
               <CountBadge count={totalCount} />
@@ -120,7 +130,7 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="border-b border-navy-50 py-3 text-sm font-medium text-navy-800 last:border-none"
+                    className="border-b border-navy-50 py-3 text-sm font-medium text-navy-800 transition-all duration-200 last:border-none hover:pl-1.5 hover:text-navy-950"
                   >
                     {tNav(item.key)}
                   </Link>
@@ -128,7 +138,7 @@ export function Header() {
                 <Link
                   href="/sign-in"
                   onClick={() => setMenuOpen(false)}
-                  className="py-3 text-sm font-medium text-navy-800"
+                  className="py-3 text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950"
                 >
                   {t("signIn")}
                 </Link>

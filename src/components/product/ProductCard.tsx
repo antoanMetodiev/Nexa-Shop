@@ -17,9 +17,9 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-navy-100 bg-white transition-shadow hover:shadow-lg hover:shadow-navy-900/5"
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-navy-100 bg-white ring-1 ring-transparent transition-all duration-300 hover:border-white hover:shadow-[0_24px_48px_-16px_rgba(15,23,55,0.16)] hover:ring-white"
     >
       <Link href={`/products/${product.id}`} className="contents">
         <div className="relative aspect-square w-full overflow-hidden bg-navy-50">
