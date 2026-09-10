@@ -97,6 +97,8 @@
 - [x] Страница „Политика за поверителност" (`/privacy`) — двуезично съдържание, секции в `messages/*.json` (`privacyPage.sections`)
 - [x] `robots.txt` (`src/app/robots.ts`, на root ниво извън `[locale]`) — allow всичко, disallow `/cart`, `/checkout`, `/account` във всички езици
 - [x] Страница „За нас" (`/about`) — история, реални статистики от Supabase (продукти/категории/брандове), values секция (преизползва `UspBar`), CTA
+- [x] Wishlist — localStorage сега (`src/lib/wishlist-context.tsx`, огледава `cart-context.tsx`), сърце бутон на всяка продуктова карта + детайлна страница, брояч в header-а, страница `/wishlist`. `wishlist_items` таблица в Supabase вече съществува (миграция `0003`, RLS enabled без policies — заключена, безопасна по подразбиране) и `src/lib/wishlist-db.ts` носи готови CRUD функции за DB-версията — предстои да се свържат, когато има Clerk потребителски id
+- [x] Страница „Контакти" (`/contact`) — адрес/имейл/телефон/работно време + Google Maps (прост iframe embed, без API ключ). Адресът е **placeholder** (1 Vitosha Blvd, Sofia) в `src/lib/constants.ts` (`STORE_ADDRESS` и др.) — смени го с реалния, когато се знае
 - [ ] Checkout страница (`/checkout`) — линкът от кошницата вече сочи натам, страницата предстои
 - [ ] Clerk автентикация
 - [ ] Stripe интеграция

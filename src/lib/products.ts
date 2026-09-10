@@ -240,6 +240,21 @@ export async function getProductById(id: number): Promise<Product | null> {
   return data;
 }
 
+export async function getProductsByIds(ids: number[]): Promise<Product[]> {
+  if (ids.length === 0) return [];
+
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .in("id", ids);
+
+  if (error || !data) {
+    console.error("getProductsByIds failed:", error?.message);
+    return [];
+  }
+  return data;
+}
+
 export async function getRelatedProducts(
   category: string,
   excludeId: number,

@@ -8,10 +8,12 @@ import { Container } from "@/components/ui/Container";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { totalCount } = useCart();
+  const { totalCount: wishlistCount } = useWishlist();
   const t = useTranslations("header");
   const tNav = useTranslations("nav");
 
@@ -63,9 +65,14 @@ export function Header() {
             <Link
               href="/wishlist"
               aria-label={t("wishlist")}
-              className="hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
+              className="relative hidden rounded-full p-2 text-navy-900 transition-colors hover:bg-navy-50 sm:inline-flex"
             >
               <Heart className="size-5" />
+              {wishlistCount > 0 && (
+                <span className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-navy-900 text-[10px] font-semibold text-white">
+                  {wishlistCount > 9 ? "9+" : wishlistCount}
+                </span>
+              )}
             </Link>
             <Link
               href="/sign-in"

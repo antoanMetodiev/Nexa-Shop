@@ -78,6 +78,10 @@
       "placeholder": "Your email address",
       "subscribe": "Subscribe",
       "thanks": "Thanks! We'll be in touch soon at {email}."
+    },
+    "location": {
+      "heading": "Visit us",
+      "subtitle": "See our products in person at our store."
     }
   },
   "breadcrumb": {
@@ -167,6 +171,16 @@
       "checkout": "Proceed to checkout",
       "continueShopping": "Continue shopping"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "remove": "Remove from wishlist",
+    "title": "Wishlist",
+    "breadcrumb": "Wishlist",
+    "itemsCount": "{count, plural, one {# product} other {# products}}",
+    "emptyTitle": "You don't have any wishlisted products yet",
+    "emptySubtitle": "Add products while you shop so you can find them easily later.",
+    "emptyCta": "Browse products"
   },
   "notFound": {
     "badge": "404 error",
@@ -269,6 +283,16 @@
     "ctaHeading": "Ready to start shopping?",
     "ctaSubtitle": "Browse the full catalog and find the products you're looking for.",
     "ctaButton": "Browse products"
+  },
+  "contactPage": {
+    "title": "Contact us",
+    "subtitle": "Have a question? We'd love to hear from you.",
+    "addressLabel": "Address",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "hoursLabel": "Business hours",
+    "hoursValue": "Monday – Friday: 9:00 AM – 6:00 PM",
+    "mapLinkLabel": "Open in Google Maps"
   },
   "language": {
     "label": "Language"

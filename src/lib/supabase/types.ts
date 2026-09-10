@@ -30,6 +30,13 @@ export type ProductRow = {
   reviews: ProductReview[];
 };
 
+export type WishlistItemRow = {
+  id: number;
+  user_id: string;
+  product_id: number;
+  created_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -41,6 +48,20 @@ export type Database = {
         };
         Update: Partial<
           Omit<ProductRow, "id" | "created_at"> & {
+            id?: number;
+            created_at?: string;
+          }
+        >;
+        Relationships: [];
+      };
+      wishlist_items: {
+        Row: WishlistItemRow;
+        Insert: Omit<WishlistItemRow, "id" | "created_at"> & {
+          id?: number;
+          created_at?: string;
+        };
+        Update: Partial<
+          Omit<WishlistItemRow, "id" | "created_at"> & {
             id?: number;
             created_at?: string;
           }

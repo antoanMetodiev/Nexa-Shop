@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/lib/cart-context";
+import { WishlistProvider } from "@/lib/wishlist-context";
 import { routing, type Locale } from "@/i18n/routing";
 import "../globals.css";
 
@@ -56,9 +57,11 @@ export default async function LocaleLayout({
       <body className="flex min-h-full flex-col font-sans">
         <NextIntlClientProvider messages={messages}>
           <CartProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <WishlistProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </WishlistProvider>
           </CartProvider>
         </NextIntlClientProvider>
       </body>

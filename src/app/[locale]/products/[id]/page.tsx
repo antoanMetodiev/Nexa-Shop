@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { ProductGallery } from "@/components/products/ProductGallery";
 import { AddToCartPanel } from "@/components/products/AddToCartPanel";
+import { WishlistButton } from "@/components/product/WishlistButton";
 import { ProductTabs } from "@/components/products/ProductTabs";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
 import {
@@ -161,13 +162,18 @@ export default async function ProductDetailPage({
               </div>
             )}
 
-            <AddToCartPanel
-              id={product.id}
-              title={product.title}
-              price={finalPrice}
-              thumbnail={product.thumbnail}
-              stock={product.stock}
-            />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+              <div className="flex-1">
+                <AddToCartPanel
+                  id={product.id}
+                  title={product.title}
+                  price={finalPrice}
+                  thumbnail={product.thumbnail}
+                  stock={product.stock}
+                />
+              </div>
+              <WishlistButton productId={product.id} variant="standalone" />
+            </div>
 
             <dl className="grid grid-cols-2 gap-3 border-t border-navy-100 pt-5 text-sm sm:grid-cols-3">
               {product.sku && (
