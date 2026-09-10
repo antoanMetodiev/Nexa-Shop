@@ -87,17 +87,22 @@
 - [x] Supabase проект и схема на базата данни (`products` таблица + RLS за публично четене)
 - [x] Seed на продукти от DummyJSON (194 продукта, 24 категории заредени в Supabase)
 - [x] Страница „Продукти" (`/products`) — филтри (категория, цена, рейтинг, бранд), сортиране, номерирана пагинация
+- [x] Детайлна страница на продукт (`/products/[id]`) — галерия, добавяне в кошница, табове (описание/доставка/отзиви), подобни продукти
+- [x] Кошница (localStorage, `src/lib/cart-context.tsx`) — брояч в header-а
+- [x] Страница „Кошница" (`/cart`) — редакция на количества, премахване, empty state, обобщение на поръчката с прагова безплатна доставка
+- [x] Custom 404 страница (`src/app/not-found.tsx`)
+- [ ] Checkout страница (`/checkout`) — линкът от кошницата вече сочи натам, страницата предстои
 - [ ] Clerk автентикация
 - [ ] Stripe интеграция
 - [ ] Cloudflare Workers deployment
-- [ ] Основен дизайн/UI (Shopify-inspired, тъмно синьо/черно/бяло) — homepage и /products готови, остават другите страници
+- [ ] Основен дизайн/UI (Shopify-inspired, тъмно синьо/черно/бяло) — homepage, /products, детайлна страница и /cart готови, остават другите
 
 ## Supabase — връзка и конфигурация
 - Project URL: `https://lrrrbzdkvnegosppqtcq.supabase.co`
 - Регион: Central EU (Frankfurt) / `eu-central-1`
 - Env вариабли в `.env.local` (gitignored): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - Supabase клиент: `src/lib/supabase/client.ts`, типове: `src/lib/supabase/types.ts`
-- SQL миграции: `supabase/migrations/` (пуска се с `npm run db:migrate`, изисква `DATABASE_URL` env var с pooler connection string — не се записва в repo)
+- SQL миграции: `supabase/migrations/` (пуска се с `npm run db:migrate`, изисква `DATABASE_URL` env var с pooler connection string — не се записва в repo). `0001` създава `products`, `0002` добавя допълнителни полета (sku, tags, гаранция, доставка, връщане, отзиви) за детайлната страница
 - Seed скрипт: `scripts/seed.ts` (пуска се с `npm run db:seed`) — тегли продукти от DummyJSON и ги upsert-ва в `products` по `dummy_id`
 - Директната DB връзка (`db.<ref>.supabase.co`) е само IPv6 — тази мрежа няма IPv6, затова се ползва **connection pooling** хостът (`aws-0-eu-central-1.pooler.supabase.com`, порт `6543`, потребител `postgres.<project-ref>`)
 - Homepage (`FeaturedProducts`, `CategoryGrid`) вече чете от Supabase (`src/lib/products.ts`), не директно от DummyJSON — заредени са всички 194 продукта, 24 категории
