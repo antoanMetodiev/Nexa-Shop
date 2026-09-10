@@ -132,7 +132,7 @@ export async function getPriceBounds(): Promise<{ min: number; max: number }> {
   };
 }
 
-export const PRODUCTS_PAGE_SIZE = 12;
+export const PRODUCTS_PAGE_SIZE = 24;
 
 export const SORT_OPTIONS = [
   "featured",
