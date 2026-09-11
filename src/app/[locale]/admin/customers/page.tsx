@@ -19,7 +19,7 @@ export default async function AdminCustomersPage({
           Клиенти
         </h1>
         <p className="mt-1 text-sm text-navy-500">
-          {total} регистрирани потребителя (Clerk)
+          {total} регистрирани потребителя
         </p>
       </div>
 
@@ -50,11 +50,9 @@ export default async function AdminCustomersPage({
                     className="border-b border-navy-50 last:border-none"
                   >
                     <td className="flex items-center gap-3 px-4 py-3">
-                      <img
-                        src={customer.imageUrl}
-                        alt=""
-                        className="size-8 rounded-full bg-navy-50"
-                      />
+                      <span className="flex size-8 items-center justify-center rounded-full bg-navy-100 text-xs font-semibold text-navy-600">
+                        {customer.name.charAt(0).toUpperCase()}
+                      </span>
                       <span className="font-medium text-navy-950">
                         {customer.name}
                       </span>

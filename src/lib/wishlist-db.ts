@@ -1,12 +1,12 @@
 import { supabase } from "@/lib/supabase/client";
 
 /**
- * DB-backed wishlist for signed-in users — ready for when Clerk auth lands.
- * Not wired into the UI yet: `wishlist_items` has RLS enabled with no
- * policies (see migration 0003), so these calls will get an empty/denied
- * result with the anon key until real per-user policies are added. Once
- * Clerk provides a user id, `WishlistProvider` should branch to these
- * functions instead of localStorage for signed-in users.
+ * DB-backed wishlist for signed-in users. Not wired into the UI yet:
+ * `wishlist_items` has RLS enabled with no policies (see migration 0003),
+ * so these calls will get an empty/denied result with the anon key until
+ * real per-user policies (using auth.uid()) are added. Once wired up,
+ * `WishlistProvider` should branch to these functions instead of
+ * localStorage for signed-in users.
  */
 
 export async function getWishlistProductIds(userId: string): Promise<number[]> {

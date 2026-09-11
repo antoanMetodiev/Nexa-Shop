@@ -1,11 +1,10 @@
 import "server-only";
-import { clerkClient } from "@clerk/nextjs/server";
+import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
 export type Customer = {
   id: string;
   name: string;
   email: string;
-  imageUrl: string;
   createdAt: number;
 };
 
@@ -15,24 +14,25 @@ export async function getCustomers(
   page = 1,
 ): Promise<{ customers: Customer[]; total: number }> {
   const pageIndex = page > 0 ? page : 1;
-  const client = await clerkClient();
-  const { data, totalCount } = await client.users.getUserList({
-    limit: CUSTOMERS_PAGE_SIZE,
-    offset: (pageIndex - 1) * CUSTOMERS_PAGE_SIZE,
-    orderBy: "-created_at",
+  const { data, error } = await supabaseAdmin.auth.admin.listUsers({
+    page: pageIndex,
+    perPage: CUSTOMERS_PAGE_SIZE,
   });
 
-  const customers = data.map((user) => ({
+  if (error) {
+    console.error("getCustomers failed:", error.message);
+    return { customers: [], total: 0 };
+  }
+
+  const customers = data.users.map((user) => ({
     id: user.id,
     name:
-      [user.firstName, user.lastName].filter(Boolean).join(" ") ||
-      user.username ||
-      user.primaryEmailAddress?.emailAddress ||
+      (user.user_metadata?.full_name as string | undefined) ||
+      user.email ||
       user.id,
-    email: user.primaryEmailAddress?.emailAddress ?? "",
-    imageUrl: user.imageUrl,
-    createdAt: user.createdAt,
+    email: user.email ?? "",
+    createdAt: new Date(user.created_at).getTime(),
   }));
 
-  return { customers, total: totalCount };
+  return { customers, total: data.total };
 }

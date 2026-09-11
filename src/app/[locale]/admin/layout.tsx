@@ -1,5 +1,5 @@
-import { UserButton } from "@clerk/nextjs";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { SignOutButton } from "@/components/admin/SignOutButton";
 import { requireAdminPage } from "@/lib/admin/require-admin";
 
 export default async function AdminLayout({
@@ -18,7 +18,7 @@ export default async function AdminLayout({
       <div className="flex-1">
         <header className="flex items-center justify-between border-b border-navy-100 bg-white px-6 py-3">
           <p className="text-sm font-semibold text-navy-950">Nexa Admin</p>
-          <UserButton />
+          <SignOutButton />
         </header>
         <main className="p-6">{children}</main>
       </div>

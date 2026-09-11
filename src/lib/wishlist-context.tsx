@@ -20,9 +20,9 @@ type WishlistContextValue = {
 const WishlistContext = createContext<WishlistContextValue | null>(null);
 const STORAGE_KEY = "nexa-wishlist";
 
-// TODO: once Clerk auth lands, branch here on the signed-in user id — for a
-// signed-in user, read/write via lib/wishlist-db.ts (Supabase) instead of
-// localStorage, so wishlists persist to their account across devices.
+// TODO: branch here on the signed-in Supabase user id — for a signed-in
+// user, read/write via lib/wishlist-db.ts instead of localStorage, so
+// wishlists persist to their account across devices.
 export function WishlistProvider({ children }: { children: ReactNode }) {
   const [ids, setIds] = useState<number[]>([]);
   const [hydrated, setHydrated] = useState(false);

@@ -4,14 +4,17 @@ import { Suspense, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
-import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { Heart, Menu, ShoppingBag, X } from "lucide-react";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
+import { AccountMenu } from "@/components/layout/AccountMenu";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { SearchModal } from "@/components/layout/SearchModal";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
+import { useSupabaseUser } from "@/lib/use-supabase-user";
+import { createClient } from "@/lib/supabase/browser-client";
 
 function CountBadge({ count }: { count: number }) {
   return (
@@ -36,8 +39,18 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { totalCount } = useCart();
   const { totalCount: wishlistCount } = useWishlist();
+  const user = useSupabaseUser();
+  const router = useRouter();
   const t = useTranslations("header");
   const tNav = useTranslations("nav");
+
+  async function handleMobileSignOut() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setMenuOpen(false);
+    router.push("/");
+    router.refresh();
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy-100 bg-white/95 backdrop-blur">
@@ -95,13 +108,7 @@ export function Header() {
               <Heart className="size-5" />
               <CountBadge count={wishlistCount} />
             </Link>
-            <Link
-              href="/sign-in"
-              aria-label={t("account")}
-              className="hidden rounded-full p-2 text-navy-900 transition-all duration-200 hover:scale-110 hover:bg-navy-50 active:scale-95 sm:inline-flex"
-            >
-              <User className="size-5" />
-            </Link>
+            <AccountMenu user={user} />
             <Link
               href="/cart"
               aria-label={t("cart")}
@@ -135,13 +142,23 @@ export function Header() {
                     {tNav(item.key)}
                   </Link>
                 ))}
-                <Link
-                  href="/sign-in"
-                  onClick={() => setMenuOpen(false)}
-                  className="py-3 text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950"
-                >
-                  {t("signIn")}
-                </Link>
+                {user ? (
+                  <button
+                    type="button"
+                    onClick={handleMobileSignOut}
+                    className="py-3 text-left text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950"
+                  >
+                    {t("signOut")}
+                  </button>
+                ) : (
+                  <Link
+                    href="/sign-in"
+                    onClick={() => setMenuOpen(false)}
+                    className="py-3 text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950"
+                  >
+                    {t("signIn")}
+                  </Link>
+                )}
               </div>
             </Container>
           </motion.nav>

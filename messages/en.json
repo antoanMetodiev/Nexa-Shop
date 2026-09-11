@@ -17,7 +17,9 @@
     "wishlist": "Wishlist",
     "account": "Account",
     "cart": "Cart",
-    "signIn": "Sign in / Account"
+    "signIn": "Sign in / Account",
+    "signOut": "Sign out",
+    "memberSince": "Member since {date}"
   },
   "footer": {
     "tagline": "Online store for quality products at affordable prices — fast, secure, and convenient.",
@@ -257,7 +259,7 @@
       },
       {
         "heading": "Third parties",
-        "body": "To provide our services, we share data with trusted providers: Supabase (database and hosting), Stripe (payment processing), and Clerk (authentication). Each of them processes data according to their own privacy policies."
+        "body": "To provide our services, we share data with trusted providers: Supabase (database, hosting, and authentication) and Stripe (payment processing). Each of them processes data according to their own privacy policies."
       },
       {
         "heading": "Storage and security",
@@ -303,6 +305,25 @@
     "hoursLabel": "Business hours",
     "hoursValue": "Monday – Friday: 9:00 AM – 6:00 PM",
     "mapLinkLabel": "Open in Google Maps"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create an account",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "signInButton": "Sign in",
+    "signUpButton": "Sign up",
+    "signingIn": "Signing in...",
+    "signingUp": "Signing up...",
+    "googleButton": "Continue with Google",
+    "orDivider": "or",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signUpLink": "Sign up",
+    "signInLink": "Sign in",
+    "checkEmailTitle": "Check your email",
+    "checkEmailBody": "We sent a confirmation link to {email}. Click it to activate your account.",
+    "genericError": "Something went wrong. Please try again."
   },
   "language": {
     "label": "Language"
