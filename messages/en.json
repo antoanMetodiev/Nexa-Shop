@@ -214,6 +214,13 @@
     "home": "Home",
     "browseProducts": "Browse products"
   },
+  "errorPage": {
+    "badge": "Error",
+    "title": "Something went wrong",
+    "subtitle": "An unexpected error occurred while loading this page. Try again or head back home.",
+    "retry": "Try again",
+    "home": "Home"
+  },
   "categoriesPage": {
     "title": "Categories",
     "subtitle": "Browse the full catalog by category.",

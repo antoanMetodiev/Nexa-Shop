@@ -30,7 +30,7 @@ export default async function AccountPage({
   const [t, tBreadcrumb, profile] = await Promise.all([
     getTranslations("account"),
     getTranslations("breadcrumb"),
-    getOrCreateProfile(user!),
+    getOrCreateProfile(supabase, user!),
   ]);
 
   return (
