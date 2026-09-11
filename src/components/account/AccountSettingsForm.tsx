@@ -69,6 +69,7 @@ export function AccountSettingsForm({ user }: { user: User }) {
         .upload(path, avatarFile, { upsert: true });
 
       if (uploadError) {
+        console.error("Avatar upload failed:", uploadError.message);
         setProfileError(t("genericError"));
         setIsSavingProfile(false);
         return;
