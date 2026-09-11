@@ -179,6 +179,7 @@
     "breadcrumb": "Checkout",
     "payButton": "Pay now",
     "payingLabel": "Redirecting to payment...",
+    "testModeNotice": "This store is running in test mode — payments aren't real, no money is charged.",
     "errorGeneric": "Couldn't start the payment. Please try again.",
     "success": {
       "heading": "Thank you for your order!",

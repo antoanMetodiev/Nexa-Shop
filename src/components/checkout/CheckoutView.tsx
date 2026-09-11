@@ -61,7 +61,12 @@ export function CheckoutView({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
+    <div className="flex flex-col gap-4">
+      <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        {t("testModeNotice")}
+      </p>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
       <div className="rounded-2xl border border-navy-100 px-5">
         {items.map((item) => (
           <div
@@ -136,6 +141,7 @@ export function CheckoutView({
           {isPending && <Loader2 className="size-4 animate-spin" />}
           {isPending ? t("payingLabel") : t("payButton")}
         </button>
+      </div>
       </div>
     </div>
   );
