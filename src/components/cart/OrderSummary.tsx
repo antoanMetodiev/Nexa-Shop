@@ -5,8 +5,7 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/products";
-
-const SHIPPING_FEE = 9.99;
+import { SHIPPING_FEE } from "@/lib/constants";
 
 export function OrderSummary({
   subtotal,

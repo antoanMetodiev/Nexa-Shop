@@ -1,5 +1,10 @@
 export const SITE_NAME = "Nexa";
 
+/** Flat shipping fee (EUR) below the free-shipping threshold. Shared by
+ * OrderSummary (display) and the Stripe checkout session (actual charge) so
+ * the two can never drift apart. */
+export const SHIPPING_FEE = 9.99;
+
 export const MAIN_NAV = [
   { key: "home", href: "/" },
   { key: "products", href: "/products" },
