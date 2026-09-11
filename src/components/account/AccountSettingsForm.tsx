@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/browser-client";
+import { uploadAvatar } from "@/lib/account/actions";
 
 const inputClass =
   "w-full rounded-lg border border-navy-200 px-3 py-2 text-sm text-navy-950 focus:border-navy-500 focus:outline-none";
@@ -62,23 +63,16 @@ export function AccountSettingsForm({ user }: { user: User }) {
     let nextAvatarUrl = avatarUrl;
 
     if (avatarFile) {
-      const ext = avatarFile.name.split(".").pop() || "jpg";
-      const path = `${user.id}/avatar.${ext}`;
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(path, avatarFile, { upsert: true });
+      const uploadFormData = new FormData();
+      uploadFormData.set("file", avatarFile);
+      const result = await uploadAvatar(uploadFormData);
 
-      if (uploadError) {
-        console.error("Avatar upload failed:", uploadError.message);
+      if ("error" in result) {
         setProfileError(t("genericError"));
         setIsSavingProfile(false);
         return;
       }
-
-      const { data: publicUrlData } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(path);
-      nextAvatarUrl = `${publicUrlData.publicUrl}?t=${Date.now()}`;
+      nextAvatarUrl = result.url;
     }
 
     const { error } = await supabase.auth.updateUser({
