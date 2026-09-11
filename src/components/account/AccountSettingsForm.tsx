@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/browser-client";
@@ -92,6 +93,7 @@ export function AccountSettingsForm({ user }: { user: User }) {
     setAvatarFile(null);
     setAvatarPreview(null);
     setProfileSuccess(true);
+    setTimeout(() => setProfileSuccess(false), 2500);
   }
 
   async function handleSavePassword(e: FormEvent) {
@@ -123,6 +125,7 @@ export function AccountSettingsForm({ user }: { user: User }) {
     setNewPassword("");
     setConfirmPassword("");
     setPasswordSuccess(true);
+    setTimeout(() => setPasswordSuccess(false), 2500);
   }
 
   const displayAvatar = avatarPreview || avatarUrl;
@@ -136,17 +139,6 @@ export function AccountSettingsForm({ user }: { user: User }) {
         <h2 className="text-base font-semibold text-navy-950">
           {t("profileHeading")}
         </h2>
-
-        {profileError && (
-          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-            {profileError}
-          </p>
-        )}
-        {profileSuccess && !profileError && (
-          <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-            {t("profileSuccess")}
-          </p>
-        )}
 
         <div className="flex items-center gap-4">
           <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-navy-200 bg-navy-50 text-lg font-semibold text-navy-500">
@@ -214,13 +206,23 @@ export function AccountSettingsForm({ user }: { user: User }) {
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={isSavingProfile}
-          className="self-start rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800 disabled:opacity-60"
-        >
-          {isSavingProfile ? t("saving") : t("saveButton")}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            disabled={isSavingProfile}
+            className="flex items-center gap-1.5 self-start rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800 disabled:opacity-60"
+          >
+            {profileSuccess && <Check className="size-4" />}
+            {isSavingProfile
+              ? t("saving")
+              : profileSuccess
+                ? t("saved")
+                : t("saveButton")}
+          </button>
+          {profileError && (
+            <p className="text-sm text-red-700">{profileError}</p>
+          )}
+        </div>
       </form>
 
       {isEmailProvider && (
@@ -231,17 +233,6 @@ export function AccountSettingsForm({ user }: { user: User }) {
           <h2 className="text-base font-semibold text-navy-950">
             {t("passwordHeading")}
           </h2>
-
-          {passwordError && (
-            <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-              {passwordError}
-            </p>
-          )}
-          {passwordSuccess && !passwordError && (
-            <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-              {t("passwordSuccess")}
-            </p>
-          )}
 
           <div>
             <label className={labelClass} htmlFor="new-password">
@@ -269,13 +260,23 @@ export function AccountSettingsForm({ user }: { user: User }) {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={isSavingPassword}
-            className="self-start rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800 disabled:opacity-60"
-          >
-            {isSavingPassword ? t("saving") : t("saveButton")}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="submit"
+              disabled={isSavingPassword}
+              className="flex items-center gap-1.5 self-start rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800 disabled:opacity-60"
+            >
+              {passwordSuccess && <Check className="size-4" />}
+              {isSavingPassword
+                ? t("saving")
+                : passwordSuccess
+                  ? t("saved")
+                  : t("saveButton")}
+            </button>
+            {passwordError && (
+              <p className="text-sm text-red-700">{passwordError}</p>
+            )}
+          </div>
         </form>
       )}
     </div>

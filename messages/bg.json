@@ -350,11 +350,10 @@
     "avatarTooLarge": "Изображението трябва да е под 5MB.",
     "saveButton": "Запази",
     "saving": "Запазване...",
-    "profileSuccess": "Промените са запазени.",
+    "saved": "Запазено",
     "passwordHeading": "Смяна на парола",
     "newPasswordLabel": "Нова парола",
     "confirmPasswordLabel": "Потвърди новата парола",
-    "passwordSuccess": "Паролата е сменена успешно.",
     "passwordMismatch": "Паролите не съвпадат.",
     "passwordTooShort": "Паролата трябва да е поне 6 символа.",
     "genericError": "Нещо се обърка. Опитай отново."

@@ -350,11 +350,10 @@
     "avatarTooLarge": "The image must be under 5MB.",
     "saveButton": "Save",
     "saving": "Saving...",
-    "profileSuccess": "Your changes have been saved.",
+    "saved": "Saved",
     "passwordHeading": "Change password",
     "newPasswordLabel": "New password",
     "confirmPasswordLabel": "Confirm new password",
-    "passwordSuccess": "Password changed successfully.",
     "passwordMismatch": "Passwords don't match.",
     "passwordTooShort": "Password must be at least 6 characters.",
     "genericError": "Something went wrong. Please try again."
