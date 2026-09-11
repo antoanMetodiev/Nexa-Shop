@@ -60,20 +60,28 @@ export async function createCheckoutSession(
     });
   }
 
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    line_items: lineItems,
-    customer_email: user?.email,
-    shipping_address_collection: { allowed_countries: ["BG"] },
-    success_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/${locale}/cart`,
-    metadata: {
-      user_id: user?.id ?? "",
-    },
-  });
+  // Returned as { error } rather than thrown: a thrown Server Action error
+  // reaches the client as an opaque "Minified React error #441" in
+  // production (e.g. when STRIPE_SECRET_KEY isn't set on the deployment).
+  try {
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      line_items: lineItems,
+      customer_email: user?.email,
+      shipping_address_collection: { allowed_countries: ["BG"] },
+      success_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/${locale}/cart`,
+      metadata: {
+        user_id: user?.id ?? "",
+      },
+    });
 
-  if (!session.url) {
+    if (!session.url) {
+      return { error: "Failed to create checkout session" };
+    }
+    return { url: session.url };
+  } catch (error) {
+    console.error("createCheckoutSession failed:", error);
     return { error: "Failed to create checkout session" };
   }
-  return { url: session.url };
 }
