@@ -4,7 +4,7 @@ import type { CartItem } from "@/lib/cart-context";
 /**
  * DB-backed cart for signed-in users, mirrors wishlist-db.ts. Stores a
  * snapshot of title/thumbnail/price (see migration 0007) so cart prices
- * don't drift after adding — same as the current localStorage behavior.
+ * don't drift after adding - same as the current localStorage behavior.
  */
 
 export async function getCartItems(userId: string): Promise<CartItem[]> {

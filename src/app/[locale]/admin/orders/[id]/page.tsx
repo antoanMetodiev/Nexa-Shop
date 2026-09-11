@@ -52,7 +52,7 @@ export default async function AdminOrderDetailPage({
             Плащане (Stripe)
           </p>
           <p className="mt-1 truncate text-sm text-navy-950">
-            {order.stripe_payment_intent_id ?? "—"}
+            {order.stripe_payment_intent_id ?? "-"}
           </p>
         </div>
       </div>

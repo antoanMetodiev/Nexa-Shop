@@ -8,10 +8,10 @@ import type { CartItem } from "@/lib/cart-context";
 
 /**
  * Creates a hosted Stripe Checkout Session for the current cart and returns
- * its URL for the client to redirect to (window.location.href — it's a
+ * its URL for the client to redirect to (window.location.href - it's a
  * Stripe-hosted domain, not a Next.js route). The order itself is only
  * written to the DB once Stripe confirms payment, via the webhook
- * (src/app/api/webhooks/stripe/route.ts) — never eagerly here.
+ * (src/app/api/webhooks/stripe/route.ts) - never eagerly here.
  */
 export async function createCheckoutSession(
   items: CartItem[],

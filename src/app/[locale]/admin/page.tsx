@@ -98,7 +98,7 @@ export default async function AdminDashboardPage() {
 
       {orderStats.totalOrders === 0 && (
         <p className="rounded-xl border border-dashed border-navy-200 px-4 py-3 text-xs text-navy-500">
-          Все още няма поръчки — секцията ще се напълни автоматично, след
+          Все още няма поръчки - секцията ще се напълни автоматично, след
           като checkout/Stripe бъде свързан.
         </p>
       )}

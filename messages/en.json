@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Nexa - Online Store",
-    "description": "Nexa is an online store for electronics, fashion, and accessories — quality products, fast delivery, and secure payment."
+    "description": "Nexa is an online store for electronics, fashion, and accessories - quality products, fast delivery, and secure payment."
   },
   "nav": {
     "home": "Home",
@@ -22,7 +22,7 @@
     "memberSince": "Member since {date}"
   },
   "footer": {
-    "tagline": "Online store for quality products at affordable prices — fast, secure, and convenient.",
+    "tagline": "Online store for quality products at affordable prices - fast, secure, and convenient.",
     "shoppingHeading": "Shopping",
     "allProducts": "All products",
     "categories": "Categories",
@@ -45,7 +45,7 @@
       "badge": "New collection 2026",
       "titleLine1": "Style and quality,",
       "titleLine2": "picked for you.",
-      "subtitle": "Nexa brings together thousands of products in one place — electronics, fashion, and accessories, with fast delivery and secure payment.",
+      "subtitle": "Nexa brings together thousands of products in one place - electronics, fashion, and accessories, with fast delivery and secure payment.",
       "shopNow": "Shop now",
       "viewDeals": "View deals"
     },
@@ -179,7 +179,7 @@
     "breadcrumb": "Checkout",
     "payButton": "Pay now",
     "payingLabel": "Redirecting to payment...",
-    "testModeNotice": "This store is running in test mode — payments aren't real, no money is charged.",
+    "testModeNotice": "This store is running in test mode - payments aren't real, no money is charged.",
     "errorGeneric": "Couldn't start the payment. Please try again.",
     "success": {
       "heading": "Thank you for your order!",
@@ -251,7 +251,7 @@
     "heading": "Discover the best deals",
     "subtitle": "Browse the products with the biggest discounts right now.",
     "emptyTitle": "No active deals right now",
-    "emptySubtitle": "Check back soon — offers are updated regularly."
+    "emptySubtitle": "Check back soon - offers are updated regularly."
   },
   "privacyPage": {
     "title": "Privacy Policy",
@@ -295,10 +295,10 @@
   "aboutPage": {
     "badge": "About us",
     "heading": "Shopping, built with you in mind",
-    "subtitle": "Nexa is an online store that brings quality products from many categories together in one place — with a clean design, fast shopping, and attention to detail.",
+    "subtitle": "Nexa is an online store that brings quality products from many categories together in one place - with a clean design, fast shopping, and attention to detail.",
     "storyHeading": "Our story",
-    "storyBody1": "Nexa started with a simple idea — shopping online shouldn't be complicated. We wanted to build a store where finding the right product takes seconds, not minutes, and the path from browsing to checkout feels smooth and enjoyable.",
-    "storyBody2": "Today we bring together products across electronics, fashion, home, and accessories — curated, categorized, and presented in a way that makes choosing easy.",
+    "storyBody1": "Nexa started with a simple idea - shopping online shouldn't be complicated. We wanted to build a store where finding the right product takes seconds, not minutes, and the path from browsing to checkout feels smooth and enjoyable.",
+    "storyBody2": "Today we bring together products across electronics, fashion, home, and accessories - curated, categorized, and presented in a way that makes choosing easy.",
     "stats": {
       "products": "Products",
       "categories": "Categories",

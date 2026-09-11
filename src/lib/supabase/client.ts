@@ -18,7 +18,7 @@ function getClient(): SupabaseClient<Database> {
 }
 
 // Lazily initialized so importing this module never crashes the build when
-// env vars aren't present yet (e.g. during static analysis) — the real
+// env vars aren't present yet (e.g. during static analysis) - the real
 // client (and its validation) is only created on first actual use.
 export const supabase = new Proxy({} as SupabaseClient<Database>, {
   get(_target, prop, receiver) {

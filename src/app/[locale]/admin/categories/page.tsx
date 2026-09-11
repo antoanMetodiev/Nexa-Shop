@@ -11,7 +11,7 @@ export default async function AdminCategoriesPage() {
           Категории
         </h1>
         <p className="mt-1 text-sm text-navy-500">
-          Категориите се извеждат автоматично от продуктите — за да
+          Категориите се извеждат автоматично от продуктите - за да
           създадеш изцяло нова категория, добави продукт с ново име в
           категорийните преводи (messages/bg.json, messages/en.json).
         </p>

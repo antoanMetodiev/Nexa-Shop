@@ -2,7 +2,7 @@
 --
 -- user_id will hold the Clerk user id (a plain string) once auth exists.
 -- Until Clerk's JWT is passed through to Supabase (Authentication > Third
--- Party Auth), we cannot safely scope RLS to a verified identity — so this
+-- Party Auth), we cannot safely scope RLS to a verified identity - so this
 -- table is created with RLS enabled and NO policies, meaning the anon /
 -- publishable key has zero access to it. That's the correct, safe default
 -- for an unused table. Real policies (using auth.jwt() claims from Clerk)

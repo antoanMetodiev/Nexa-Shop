@@ -24,7 +24,7 @@ export const HOMEPAGE_CATEGORY_SLUGS = [
 ] as const;
 
 /**
- * Placeholder store location — swap this out once a real address is decided.
+ * Placeholder store location - swap this out once a real address is decided.
  * Used for the /contact page's Google Maps embed and "open in Maps" link.
  */
 export const STORE_ADDRESS = "1 Vitosha Blvd, 1000 Sofia, Bulgaria";

@@ -11,7 +11,7 @@ let client: SupabaseClient<Database> | undefined;
  * Server and Client Components) because createBrowserClient relies on
  * document.cookie and isn't valid to call from a Server Component.
  *
- * Memoized as a module-level singleton — createBrowserClient() starts its
+ * Memoized as a module-level singleton - createBrowserClient() starts its
  * own GoTrueClient each call, and calling it repeatedly (every component
  * that needs auth calls createClient()) otherwise triggers Supabase's
  * "Multiple GoTrueClient instances" warning.

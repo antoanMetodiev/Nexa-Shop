@@ -1,5 +1,5 @@
 // One-off catalog expansion: hand-authored products (not from DummyJSON,
-// which only has 194 total — already fully seeded by seed.ts) added on top
+// which only has 194 total - already fully seeded by seed.ts) added on top
 // of the existing catalog, skewed towards tech. Images/galleries are reused
 // from existing same-category DummyJSON products (cdn.dummyjson.com is
 // already the only external image host the site trusts), so no new image
@@ -99,7 +99,7 @@ const products: NewProduct[] = [
   {
     title: "iPhone 16 Pro Max",
     description:
-      "Най-новият флагман на Apple — титаниев корпус, чип A18 Pro и камера с невероятна детайлност.",
+      "Най-новият флагман на Apple - титаниев корпус, чип A18 Pro и камера с невероятна детайлност.",
     category: "smartphones",
     brand: "Apple",
     price: 1449,
@@ -168,7 +168,7 @@ const products: NewProduct[] = [
   {
     title: "Xiaomi 14 Ultra",
     description:
-      "Leica оптика, Snapdragon 8 Gen 4 и бързо зареждане 90W — премиум клас на разумна цена.",
+      "Leica оптика, Snapdragon 8 Gen 4 и бързо зареждане 90W - премиум клас на разумна цена.",
     category: "smartphones",
     brand: "Xiaomi",
     price: 999,
@@ -216,7 +216,7 @@ const products: NewProduct[] = [
   {
     title: "MacBook Air M4",
     description:
-      "По-тънък, по-бърз, до 20 часа издръжливост на батерията — идеален за работа в движение.",
+      "По-тънък, по-бърз, до 20 часа издръжливост на батерията - идеален за работа в движение.",
     category: "laptops",
     brand: "Apple",
     price: 1299,
@@ -285,7 +285,7 @@ const products: NewProduct[] = [
   {
     title: "Lenovo ThinkPad X1 Carbon Gen 12",
     description:
-      "Бизнес класика — карбонов корпус, страхотна клавиатура и военен стандарт за устойчивост.",
+      "Бизнес класика - карбонов корпус, страхотна клавиатура и военен стандарт за устойчивост.",
     category: "laptops",
     brand: "Lenovo",
     price: 1799,
@@ -332,7 +332,7 @@ const products: NewProduct[] = [
   {
     title: 'iPad Pro M4 13"',
     description:
-      "Ultra Retina XDR дисплей и чип M4 — таблет, който замества лаптоп за повечето задачи.",
+      "Ultra Retina XDR дисплей и чип M4 - таблет, който замества лаптоп за повечето задачи.",
     category: "tablets",
     brand: "Apple",
     price: 1299,
@@ -404,7 +404,7 @@ const products: NewProduct[] = [
   {
     title: "Sony WH-1000XM6 Wireless Headphones",
     description:
-      "Индустриален еталон за активно шумопотискане — перфектни за пътуване и офис.",
+      "Индустриален еталон за активно шумопотискане - перфектни за пътуване и офис.",
     category: "mobile-accessories",
     brand: "Sony",
     price: 429,
@@ -448,7 +448,7 @@ const products: NewProduct[] = [
   {
     title: "Anker MagSafe Power Bank 10000mAh",
     description:
-      "Магнитно захващащ се external батерия — заряд в движение без кабели.",
+      "Магнитно захващащ се external батерия - заряд в движение без кабели.",
     category: "mobile-accessories",
     brand: "Anker",
     price: 59.99,
@@ -470,7 +470,7 @@ const products: NewProduct[] = [
   {
     title: "JBL Charge 6 Bluetooth Speaker",
     description:
-      "Мощен звук, водоустойчив корпус и до 20 часа работа — перфектна за плаж и парти.",
+      "Мощен звук, водоустойчив корпус и до 20 часа работа - перфектна за плаж и парти.",
     category: "mobile-accessories",
     brand: "JBL",
     price: 199,
@@ -513,7 +513,7 @@ const products: NewProduct[] = [
   // --- Non-tech variety ---
   {
     title: "Ray-Ban Aviator Classic",
-    description: "Иконичен дизайн от 1937 г. — стъкла с UV защита и метална рамка.",
+    description: "Иконичен дизайн от 1937 г. - стъкла с UV защита и метална рамка.",
     category: "sunglasses",
     brand: "Ray-Ban",
     price: 169,
@@ -557,7 +557,7 @@ const products: NewProduct[] = [
   },
   {
     title: "Wilson Pro Staff Tennis Racket",
-    description: "Ракетата на професионалистите — прецизен контрол и стабилна мощ.",
+    description: "Ракетата на професионалистите - прецизен контрол и стабилна мощ.",
     category: "sports-accessories",
     brand: "Wilson",
     price: 249,
@@ -577,7 +577,7 @@ const products: NewProduct[] = [
   },
   {
     title: "Modern LED Floor Lamp",
-    description: "Минималистична LED лампа с регулируема яркост — топла атмосфера за дома.",
+    description: "Минималистична LED лампа с регулируема яркост - топла атмосфера за дома.",
     category: "home-decoration",
     brand: "Nexa Home",
     price: 89.99,

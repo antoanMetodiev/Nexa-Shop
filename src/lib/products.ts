@@ -208,7 +208,7 @@ export async function getProducts(
 
 /**
  * PostgREST's `.or()` filter string uses "," and "()" as syntax, so strip
- * them from user input before interpolating — otherwise a query containing
+ * them from user input before interpolating - otherwise a query containing
  * either breaks the filter (or, worse, changes its structure).
  */
 function sanitizeSearchTerm(query: string): string {
@@ -331,7 +331,7 @@ export async function getRelatedProducts(
 }
 
 // Stored product prices are treated as EUR. BGN is derived via the fixed
-// official peg (not a market rate — this is the legal conversion used for
+// official peg (not a market rate - this is the legal conversion used for
 // the euro changeover), so dual-currency display doesn't depend on a live
 // forex rate.
 const BGN_PER_EUR = 1.95583;

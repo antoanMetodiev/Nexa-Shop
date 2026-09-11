@@ -66,7 +66,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     prevUserId.current = user?.id ?? null;
 
     if (!user) {
-      // Guest — either never signed in, or just signed out (localStorage is
+      // Guest - either never signed in, or just signed out (localStorage is
       // empty in the sign-out case since it was cleared on sign-in below).
       // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing local state to the signed-in-ness of the external auth session, not derivable during render
       setItems(readLocalItems());

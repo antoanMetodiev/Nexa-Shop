@@ -21,7 +21,7 @@ function getClient(): SupabaseClient<Database> {
 }
 
 /**
- * Bypasses RLS entirely — only ever call this from server actions/route
+ * Bypasses RLS entirely - only ever call this from server actions/route
  * handlers that have already verified the caller is an authenticated admin
  * (see requireAdmin in src/lib/admin/require-admin.ts). The "server-only"
  * import above makes accidentally bundling this into client code a build

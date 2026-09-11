@@ -14,7 +14,7 @@ const SupabaseUserContext = createContext<User | null | undefined>(undefined);
 
 /**
  * Single shared subscription to the signed-in Supabase user, wrapping the
- * whole (shop) layout — Header, CartProvider, and WishlistProvider all read
+ * whole (shop) layout - Header, CartProvider, and WishlistProvider all read
  * from here instead of each independently calling getUser()/
  * onAuthStateChange, which would otherwise fire the same auth check 3x on
  * every page load.

@@ -1,7 +1,7 @@
 -- Cart for signed-in users. Stores a snapshot of title/thumbnail/price at
 -- add-to-cart time (matches order_items in migration 0005, and the current
 -- localStorage CartItem shape) rather than a live join to products, so the
--- price shown doesn't drift after adding — same behavior as before, just
+-- price shown doesn't drift after adding - same behavior as before, just
 -- persisted.
 create table if not exists public.cart_items (
   id bigint generated always as identity primary key,

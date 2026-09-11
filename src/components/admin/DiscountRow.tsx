@@ -29,7 +29,7 @@ export function DiscountRow({ discount }: { discount: DiscountCodeRow }) {
       <td className="px-4 py-3 text-navy-500">
         {discount.expires_at
           ? new Date(discount.expires_at).toLocaleDateString("bg-BG")
-          : "—"}
+          : "-"}
       </td>
       <td className="px-4 py-3">
         <button

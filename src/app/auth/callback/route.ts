@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "@/i18n/routing";
 
 // Root-level (outside [locale]) since it's a redirect target for Supabase
-// OAuth, not a user-facing page — mirrors src/app/robots.ts.
+// OAuth, not a user-facing page - mirrors src/app/robots.ts.
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");

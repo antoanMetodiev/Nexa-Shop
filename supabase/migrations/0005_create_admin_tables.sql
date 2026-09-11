@@ -7,7 +7,7 @@
 -- All mutations from the admin panel go through server actions using the
 -- Supabase service role key (never exposed to the client), gated by a Clerk
 -- "admin" role check. RLS stays enabled with no public write policies as a
--- defense-in-depth backstop — the anon/publishable key can never write here.
+-- defense-in-depth backstop - the anon/publishable key can never write here.
 create table if not exists public.orders (
   id bigint generated always as identity primary key,
   user_id text,
@@ -74,7 +74,7 @@ alter table public.discount_codes enable row level security;
 alter table public.store_settings enable row level security;
 
 -- store_settings is the one admin table the public storefront also reads
--- (header/footer/contact/homepage), so it gets a public SELECT policy —
+-- (header/footer/contact/homepage), so it gets a public SELECT policy -
 -- everything else (orders, order_items, discount_codes) stays locked down.
 create policy "Public can read store settings"
   on public.store_settings for select

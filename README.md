@@ -1,61 +1,91 @@
-# Nexa — Modern E-Commerce Storefront
+<div align="center">
 
-**Live demo:** [https://nexa-shop.nexa-shop2026.workers.dev](https://nexa-shop.nexa-shop2026.workers.dev)
+# 🛍️ Nexa
 
-Nexa is a full-featured, Shopify-inspired online store built from scratch with Next.js and Supabase — a complete storefront, customer accounts, and an internal admin panel, all wired to real backend services rather than mocked data. It ships as a bilingual (Bulgarian/English) shopping experience with dual EUR/BGN pricing, animated UI, and a Stripe-powered checkout.
+**A modern, Shopify-inspired e-commerce store - built end-to-end with Next.js, Supabase, and Stripe.**
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-nexa--shop2026-1f2937?style=for-the-badge&logo=googlechrome&logoColor=white)](https://nexa-shop.nexa-shop2026.workers.dev)
+
+[![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com)
+[![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=flat-square&logo=stripe&logoColor=white)](https://stripe.com)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com)
+
+<br/>
+
+<img src="docs/screenshot-home.jpg" alt="Nexa homepage" width="100%" />
+
+</div>
+
+<br/>
+
+Nexa is a full-featured online store - a complete storefront, self-service customer accounts, and an internal admin panel, all wired to **real backend services** rather than mocked data. It's bilingual (🇧🇬 Bulgarian / 🇬🇧 English), shows dual EUR/BGN pricing, and ships an animated, polished UI on top of a production-shaped architecture: real auth, a real database, real payments infrastructure.
+
+<br/>
+
+<div align="center">
+<img src="docs/screenshot-products.jpg" alt="Nexa product catalog" width="100%" />
+</div>
+
+<br/>
 
 ## ✨ Features
 
-### Storefront
-- Full product catalog with category/price/rating/brand filters, sorting, and pagination
-- Product detail pages with image galleries, tabs (description/shipping/reviews), and related products
-- Live search with instant dropdown suggestions + a dedicated results page
-- Deals page (products sorted by biggest discount)
-- Cart and wishlist that persist to your account when signed in, and fall back to `localStorage` as a guest — merged automatically on sign-in
-- Dual-currency pricing (EUR primary, BGN alongside) throughout the site
-- Fully bilingual UI (BG/EN) via locale-prefixed routing, with per-page metadata and translated content
-- Smooth, purposeful motion throughout (hover states, staggered grids, page transitions) built on top of `motion`
+### 🛒 Storefront
+- 🔍 Full product catalog with category, price, rating, and brand filters, sorting, and pagination
+- 🖼️ Product detail pages with image galleries, tabs (description / shipping / reviews), and related products
+- ⚡ Live search with an instant dropdown + a dedicated results page
+- 🏷️ Deals page, sorted by biggest discount
+- ❤️ Cart & wishlist that **persist to your account** when signed in, falling back to `localStorage` as a guest - merged automatically the moment you sign in
+- 💶 Dual-currency pricing (EUR primary, BGN alongside) throughout the site
+- 🌍 Fully bilingual UI (BG/EN) via locale-prefixed routing, with translated metadata and content
+- 🎬 Smooth, purposeful motion everywhere - hover states, staggered grids, page transitions - built on [`motion`](https://motion.dev)
 
-### Accounts & Auth
-- Supabase Auth — email/password and "Sign in with Google"
-- Self-service profile settings: display name, phone number, avatar upload (Supabase Storage), and password changes
-- Session-aware header (avatar, join date, sign-out) that updates live across the app
+### 👤 Accounts & Auth
+- 🔐 Supabase Auth - email/password **and** "Sign in with Google"
+- ⚙️ Self-service profile settings: display name, phone number, avatar upload (Supabase Storage), and password changes
+- 🟢 Session-aware header (avatar, join date, sign-out) that updates live across the app
 
-### Checkout & Payments
-- Stripe Checkout (hosted Checkout Session) with guest and signed-in checkout support
-- Webhook-driven order recording — orders are only written to the database once payment is confirmed, never eagerly from the client
-- Dynamic shipping cost based on an admin-configurable free-shipping threshold
+### 💳 Checkout & Payments
+- 🧾 Stripe Checkout (hosted Checkout Session) - guest **and** signed-in checkout
+- 🪝 Webhook-driven order recording - orders are only written to the database once payment is *confirmed*, never eagerly from the client
+- 🚚 Dynamic shipping cost, based on an admin-configurable free-shipping threshold
 
-### Admin Panel
+### 🛠️ Admin Panel
 A code-complete internal dashboard at `/admin`, gated by role-based access control:
-- Dashboard with live stats (products, categories, orders, revenue, active promo codes)
-- Full product CRUD (create/edit/delete, with a proper form and image fields)
-- Category management (merge products between categories)
-- Order list and detail views with status updates
-- Customer list (real signed-up users, not mock data)
-- Discount code management (percentage or fixed-amount codes)
-- Store settings (contact info, free-shipping threshold) — reflected live on the public site
 
-## 🛠 Tech Stack
+| Section | What it does |
+|---|---|
+| 📊 Dashboard | Live stats - products, categories, orders, revenue, active promo codes |
+| 📦 Products | Full CRUD with a proper form, images, stock, pricing |
+| 🗂️ Categories | Merge products between categories |
+| 🧺 Orders | List + detail views, status updates |
+| 🧑‍🤝‍🧑 Customers | Real signed-up users - not mock data |
+| 🎟️ Discounts | Percentage or fixed-amount promo codes |
+| ⚙️ Settings | Contact info & free-shipping threshold - reflected live on the public site |
+
+## 🧰 Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Framework | [Next.js](https://nextjs.org) (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Animation | [motion](https://motion.dev) |
-| Database & Auth | [Supabase](https://supabase.com) (Postgres, Auth, Storage, Row Level Security) |
-| Payments | [Stripe](https://stripe.com) (Checkout Sessions + webhooks) |
-| Internationalization | [next-intl](https://next-intl.dev) |
-| Deployment | Cloudflare Workers, via [vinext](https://github.com/vinxi/vinext) |
-| Seed data | [DummyJSON](https://dummyjson.com) |
+| 🖼️ Framework | [Next.js](https://nextjs.org) (App Router) |
+| 📘 Language | TypeScript |
+| 🎨 Styling | Tailwind CSS |
+| 🎬 Animation | [motion](https://motion.dev) |
+| 🗄️ Database, Auth & Storage | [Supabase](https://supabase.com) (Postgres + Row Level Security) |
+| 💳 Payments | [Stripe](https://stripe.com) (Checkout Sessions + webhooks) |
+| 🌍 i18n | [next-intl](https://next-intl.dev) |
+| ☁️ Deployment | Cloudflare Workers, via [vinext](https://github.com/vinxi/vinext) |
+| 🌱 Seed data | [DummyJSON](https://dummyjson.com) |
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 20+
 - A [Supabase](https://supabase.com) project
-- A [Stripe](https://stripe.com) account (test mode is enough for local development)
+- A [Stripe](https://stripe.com) account (test mode is enough for local dev)
 
 ### Setup
 
@@ -63,7 +93,7 @@ A code-complete internal dashboard at `/admin`, gated by role-based access contr
 npm install
 ```
 
-Create a `.env.local` file with:
+Create a `.env.local`:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=
@@ -73,11 +103,11 @@ STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
 ```
 
-Run the SQL migrations in `supabase/migrations/` against your Supabase project (via the SQL Editor, in numeric order), then seed the product catalog:
+Run the SQL migrations in `supabase/migrations/` against your Supabase project (SQL Editor, in numeric order), then seed the catalog:
 
 ```bash
-npm run db:seed          # pulls the base catalog from DummyJSON
-npm run db:seed-more      # adds a hand-curated set of extra (mostly tech) products
+npm run db:seed        # base catalog, pulled from DummyJSON
+npm run db:seed-more    # a hand-curated set of extra (mostly tech) products
 ```
 
 Start the dev server:
@@ -86,7 +116,7 @@ Start the dev server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) 🎉
 
 For local Stripe webhook testing, forward events with the [Stripe CLI](https://stripe.com/docs/stripe-cli):
 
@@ -94,7 +124,7 @@ For local Stripe webhook testing, forward events with the [Stripe CLI](https://s
 stripe listen --forward-to localhost:3000/api/webhooks/stripe
 ```
 
-## 📦 Deployment
+## ☁️ Deployment
 
 Nexa deploys to **Cloudflare Workers** via [vinext](https://github.com/vinxi/vinext), a Vite-based Next.js runtime built for the Workers platform:
 
@@ -103,7 +133,7 @@ npm run build:vinext
 npm run deploy:vinext
 ```
 
-The standard `npm run dev` / `npm run build` (plain Next.js) continue to work as usual for local development.
+The standard `npm run dev` / `npm run build` (plain Next.js) keep working as usual for local development.
 
 ## 📁 Project Structure
 
@@ -122,9 +152,13 @@ messages/                 bg.json / en.json translation catalogs
 
 ## 📝 Notes
 
-- Product data is seeded from [DummyJSON](https://dummyjson.com) for demo purposes, supplemented with hand-authored listings; this is not a real inventory.
-- Stripe is configured in **test mode** — no real payments are processed.
+- 🌱 Product data is seeded from [DummyJSON](https://dummyjson.com) for demo purposes, supplemented with hand-authored listings - this is not a real inventory.
+- 🧪 Stripe is configured in **test mode** - no real payments are processed.
 
 ---
 
-Built as a hands-on exercise in shipping a production-shaped e-commerce app end-to-end: real auth, a real database, real payments infrastructure, and an admin surface to run it all.
+<div align="center">
+
+Built as a hands-on exercise in shipping a production-shaped e-commerce app end-to-end - real auth, a real database, real payments infrastructure, and an admin surface to run it all.
+
+</div>

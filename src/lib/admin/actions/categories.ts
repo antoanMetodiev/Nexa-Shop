@@ -5,12 +5,12 @@ import { requireAdminAction } from "@/lib/admin/require-admin";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
 /**
- * Categories aren't a separate table — they're just the distinct values of
+ * Categories aren't a separate table - they're just the distinct values of
  * products.category, and each slug needs a matching entry in the
  * categoryNames translation namespace (messages/*.json) to display a name
  * on the storefront. So instead of free-text renaming (which could create
  * a slug with no translation and break public category pages), admins can
- * only move all products from one EXISTING category into another — useful
+ * only move all products from one EXISTING category into another - useful
  * for merging duplicates or fixing a miscategorized batch.
  */
 export async function reassignCategory(
