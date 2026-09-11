@@ -104,7 +104,7 @@ export function ProductForm({
 
         <div>
           <label className={labelClass} htmlFor="price">
-            Цена ($)
+            Цена (€)
           </label>
           <input
             id="price"

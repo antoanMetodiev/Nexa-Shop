@@ -97,7 +97,7 @@ export function SettingsForm({ settings }: { settings: StoreSettings }) {
 
       <div>
         <label className={labelClass} htmlFor="free_shipping_threshold">
-          Праг за безплатна доставка ($)
+          Праг за безплатна доставка (€)
         </label>
         <input
           id="free_shipping_threshold"

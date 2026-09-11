@@ -20,7 +20,7 @@ export function DiscountRow({ discount }: { discount: DiscountCodeRow }) {
       <td className="px-4 py-3 text-navy-600">
         {discount.type === "percentage"
           ? `${discount.value}%`
-          : `$${discount.value}`}
+          : `${discount.value} €`}
       </td>
       <td className="px-4 py-3 text-navy-500">
         {discount.used_count}

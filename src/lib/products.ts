@@ -330,11 +330,15 @@ export async function getRelatedProducts(
   return data;
 }
 
+// Stored product prices are treated as EUR. BGN is derived via the fixed
+// official peg (not a market rate — this is the legal conversion used for
+// the euro changeover), so dual-currency display doesn't depend on a live
+// forex rate.
+const BGN_PER_EUR = 1.95583;
+
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(price);
+  const bgn = price * BGN_PER_EUR;
+  return `${price.toFixed(2)} € (${bgn.toFixed(2)} лв.)`;
 }
 
 export function discountedPrice(product: Product): number {

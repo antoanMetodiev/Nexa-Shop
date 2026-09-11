@@ -56,7 +56,7 @@ export function DiscountForm() {
             className="rounded-lg border border-navy-200 px-3 py-2 text-sm"
           >
             <option value="percentage">Процент (%)</option>
-            <option value="fixed">Фиксирана сума ($)</option>
+            <option value="fixed">Фиксирана сума (€)</option>
           </select>
         </div>
 
