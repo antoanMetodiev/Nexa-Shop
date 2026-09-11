@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
 import { Star } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { WishlistButton } from "@/components/product/WishlistButton";
@@ -16,11 +15,7 @@ export function ProductCard({ product }: { product: Product }) {
   const finalPrice = discountedPrice(product);
 
   return (
-    <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-navy-100 bg-white ring-1 ring-transparent transition-all duration-300 hover:border-white hover:shadow-[0_24px_48px_-16px_rgba(15,23,55,0.16)] hover:ring-white"
-    >
+    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-navy-100 bg-white ring-1 ring-transparent transition-all duration-300 hover:border-white hover:shadow-[0_40px_100px_-24px_rgba(15,23,55,0.4)] hover:ring-white">
       <Link href={`/products/${product.id}`} className="contents">
         <div className="relative aspect-square w-full overflow-hidden bg-navy-50">
           <Image
@@ -66,6 +61,6 @@ export function ProductCard({ product }: { product: Product }) {
       </Link>
 
       <WishlistButton productId={product.id} />
-    </motion.div>
+    </div>
   );
 }
