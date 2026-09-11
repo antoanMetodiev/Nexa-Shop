@@ -40,6 +40,7 @@ export default async function AdminCustomersPage({
                 <tr className="border-b border-navy-100 text-xs uppercase tracking-wide text-navy-400">
                   <th className="px-4 py-3 font-medium">Клиент</th>
                   <th className="px-4 py-3 font-medium">Имейл</th>
+                  <th className="px-4 py-3 font-medium">Телефон</th>
                   <th className="px-4 py-3 font-medium">Регистриран на</th>
                 </tr>
               </thead>
@@ -59,6 +60,9 @@ export default async function AdminCustomersPage({
                     </td>
                     <td className="px-4 py-3 text-navy-600">
                       {customer.email}
+                    </td>
+                    <td className="px-4 py-3 text-navy-600">
+                      {customer.phone ?? "-"}
                     </td>
                     <td className="px-4 py-3 text-navy-500">
                       {new Date(customer.createdAt).toLocaleDateString(

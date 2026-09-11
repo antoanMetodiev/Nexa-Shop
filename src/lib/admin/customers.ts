@@ -5,6 +5,7 @@ export type Customer = {
   id: string;
   name: string;
   email: string;
+  phone: string | null;
   createdAt: number;
 };
 
@@ -14,25 +15,27 @@ export async function getCustomers(
   page = 1,
 ): Promise<{ customers: Customer[]; total: number }> {
   const pageIndex = page > 0 ? page : 1;
-  const { data, error } = await supabaseAdmin.auth.admin.listUsers({
-    page: pageIndex,
-    perPage: CUSTOMERS_PAGE_SIZE,
-  });
+  const from = (pageIndex - 1) * CUSTOMERS_PAGE_SIZE;
+  const to = from + CUSTOMERS_PAGE_SIZE - 1;
 
-  if (error) {
-    console.error("getCustomers failed:", error.message);
+  const { data, error, count } = await supabaseAdmin
+    .from("users")
+    .select("id, email, full_name, phone, created_at", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  if (error || !data) {
+    console.error("getCustomers failed:", error?.message);
     return { customers: [], total: 0 };
   }
 
-  const customers = data.users.map((user) => ({
-    id: user.id,
-    name:
-      (user.user_metadata?.full_name as string | undefined) ||
-      user.email ||
-      user.id,
-    email: user.email ?? "",
-    createdAt: new Date(user.created_at).getTime(),
+  const customers = data.map((row) => ({
+    id: row.id,
+    name: row.full_name || row.email || row.id,
+    email: row.email ?? "",
+    phone: row.phone,
+    createdAt: new Date(row.created_at).getTime(),
   }));
 
-  return { customers, total: data.total };
+  return { customers, total: count ?? customers.length };
 }

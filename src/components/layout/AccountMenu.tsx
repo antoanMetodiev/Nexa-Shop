@@ -8,11 +8,13 @@ import { User as UserIcon } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { Link, useRouter } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/browser-client";
+import { useProfile } from "@/lib/profile-context";
 
 export function AccountMenu({ user }: { user: User | null }) {
   const t = useTranslations("header");
   const locale = useLocale();
   const router = useRouter();
+  const { profile } = useProfile();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -49,8 +51,14 @@ export function AccountMenu({ user }: { user: User | null }) {
     );
   }
 
-  const avatarUrl = user.user_metadata?.avatar_url as string | undefined;
-  const name = user.user_metadata?.full_name as string | undefined;
+  // Profile table is the source of truth; auth metadata only bridges the
+  // moment before the profile row has loaded.
+  const avatarUrl =
+    profile?.avatar_url ??
+    (user.user_metadata?.avatar_url as string | undefined);
+  const name =
+    profile?.full_name ??
+    (user.user_metadata?.full_name as string | undefined);
   const label = name || user.email || "";
   const joinedDate = user.created_at
     ? new Date(user.created_at).toLocaleDateString(locale)

@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import { Container } from "@/components/ui/Container";
 import { AccountSettingsForm } from "@/components/account/AccountSettingsForm";
 import { createClient } from "@/lib/supabase/server";
+import { getOrCreateProfile } from "@/lib/account/profile";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("account");
@@ -26,9 +27,10 @@ export default async function AccountPage({
     redirect({ href: "/sign-in", locale: locale as Locale });
   }
 
-  const [t, tBreadcrumb] = await Promise.all([
+  const [t, tBreadcrumb, profile] = await Promise.all([
     getTranslations("account"),
     getTranslations("breadcrumb"),
+    getOrCreateProfile(user!),
   ]);
 
   return (
@@ -46,7 +48,7 @@ export default async function AccountPage({
           {t("title")}
         </h1>
 
-        <AccountSettingsForm user={user!} />
+        <AccountSettingsForm user={user!} profile={profile} />
       </Container>
     </div>
   );

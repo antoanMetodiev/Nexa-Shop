@@ -5,26 +5,29 @@ import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/browser-client";
-import { uploadAvatar } from "@/lib/account/actions";
+import type { UserRow } from "@/lib/supabase/types";
+import { updateProfile, uploadAvatar } from "@/lib/account/actions";
+import { useProfile } from "@/lib/profile-context";
 
 const inputClass =
   "w-full rounded-lg border border-navy-200 px-3 py-2 text-sm text-navy-950 focus:border-navy-500 focus:outline-none";
 const labelClass = "mb-1.5 block text-xs font-medium text-navy-600";
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024;
 
-export function AccountSettingsForm({ user }: { user: User }) {
+export function AccountSettingsForm({
+  user,
+  profile,
+}: {
+  user: User;
+  profile: UserRow;
+}) {
   const t = useTranslations("account");
+  const { refreshProfile } = useProfile();
   const isEmailProvider = user.app_metadata?.provider === "email";
 
-  const [name, setName] = useState(
-    (user.user_metadata?.full_name as string | undefined) ?? "",
-  );
-  const [phone, setPhone] = useState(
-    (user.user_metadata?.phone as string | undefined) ?? "",
-  );
-  const [avatarUrl, setAvatarUrl] = useState(
-    (user.user_metadata?.avatar_url as string | undefined) ?? "",
-  );
+  const [name, setName] = useState(profile.full_name ?? "");
+  const [phone, setPhone] = useState(profile.phone ?? "");
+  const [avatarUrl, setAvatarUrl] = useState(profile.avatar_url ?? "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [isSavingProfile, setIsSavingProfile] = useState(false);
@@ -59,7 +62,6 @@ export function AccountSettingsForm({ user }: { user: User }) {
     setProfileSuccess(false);
     setIsSavingProfile(true);
 
-    const supabase = createClient();
     let nextAvatarUrl = avatarUrl;
 
     if (avatarFile) {
@@ -75,12 +77,10 @@ export function AccountSettingsForm({ user }: { user: User }) {
       nextAvatarUrl = result.url;
     }
 
-    const { error } = await supabase.auth.updateUser({
-      data: {
-        full_name: name,
-        phone,
-        avatar_url: nextAvatarUrl,
-      },
+    const { error } = await updateProfile({
+      full_name: name,
+      phone,
+      avatar_url: nextAvatarUrl || null,
     });
 
     setIsSavingProfile(false);
@@ -94,6 +94,8 @@ export function AccountSettingsForm({ user }: { user: User }) {
     setAvatarPreview(null);
     setProfileSuccess(true);
     setTimeout(() => setProfileSuccess(false), 2500);
+    // Header/AccountMenu read from the profile context, not auth metadata.
+    await refreshProfile();
   }
 
   async function handleSavePassword(e: FormEvent) {

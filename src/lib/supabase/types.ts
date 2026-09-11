@@ -37,6 +37,16 @@ export type WishlistItemRow = {
   created_at: string;
 };
 
+export type UserRow = {
+  id: string;
+  email: string | null;
+  full_name: string | null;
+  phone: string | null;
+  avatar_url: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type CartItemRow = {
   id: number;
   user_id: string;
@@ -135,6 +145,15 @@ export type Database = {
             created_at?: string;
           }
         >;
+        Relationships: [];
+      };
+      users: {
+        Row: UserRow;
+        Insert: Omit<UserRow, "created_at" | "updated_at"> & {
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Omit<UserRow, "id">>;
         Relationships: [];
       };
       cart_items: {
