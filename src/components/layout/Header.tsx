@@ -13,7 +13,7 @@ import { SearchModal } from "@/components/layout/SearchModal";
 import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
-import { useSupabaseUser } from "@/lib/use-supabase-user";
+import { useSupabaseUserContext } from "@/lib/supabase/user-context";
 import { createClient } from "@/lib/supabase/browser-client";
 
 function CountBadge({ count }: { count: number }) {
@@ -39,7 +39,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { totalCount } = useCart();
   const { totalCount: wishlistCount } = useWishlist();
-  const user = useSupabaseUser();
+  const user = useSupabaseUserContext();
   const router = useRouter();
   const t = useTranslations("header");
   const tNav = useTranslations("nav");

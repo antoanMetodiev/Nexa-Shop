@@ -37,6 +37,18 @@ export type WishlistItemRow = {
   created_at: string;
 };
 
+export type CartItemRow = {
+  id: number;
+  user_id: string;
+  product_id: number;
+  title: string;
+  thumbnail: string;
+  price: number;
+  quantity: number;
+  created_at: string;
+  updated_at: string;
+};
+
 export type OrderStatus =
   | "pending"
   | "paid"
@@ -121,6 +133,22 @@ export type Database = {
           Omit<WishlistItemRow, "id" | "created_at"> & {
             id?: number;
             created_at?: string;
+          }
+        >;
+        Relationships: [];
+      };
+      cart_items: {
+        Row: CartItemRow;
+        Insert: Omit<CartItemRow, "id" | "created_at" | "updated_at"> & {
+          id?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<
+          Omit<CartItemRow, "id" | "created_at" | "updated_at"> & {
+            id?: number;
+            created_at?: string;
+            updated_at?: string;
           }
         >;
         Relationships: [];

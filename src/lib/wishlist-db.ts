@@ -1,15 +1,14 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/browser-client";
 
 /**
- * DB-backed wishlist for signed-in users. Not wired into the UI yet:
- * `wishlist_items` has RLS enabled with no policies (see migration 0003),
- * so these calls will get an empty/denied result with the anon key until
- * real per-user policies (using auth.uid()) are added. Once wired up,
- * `WishlistProvider` should branch to these functions instead of
- * localStorage for signed-in users.
+ * DB-backed wishlist for signed-in users. Uses the cookie-based browser
+ * client (not lib/supabase/client.ts, which keeps its own localStorage
+ * session separate from the SSR auth cookies) so that auth.uid() resolves
+ * in the RLS policies (migration 0006).
  */
 
 export async function getWishlistProductIds(userId: string): Promise<number[]> {
+  const supabase = createClient();
   const { data, error } = await supabase
     .from("wishlist_items")
     .select("product_id")
@@ -26,6 +25,7 @@ export async function addWishlistItem(
   userId: string,
   productId: number,
 ): Promise<void> {
+  const supabase = createClient();
   const { error } = await supabase
     .from("wishlist_items")
     .upsert(
@@ -40,6 +40,7 @@ export async function removeWishlistItem(
   userId: string,
   productId: number,
 ): Promise<void> {
+  const supabase = createClient();
   const { error } = await supabase
     .from("wishlist_items")
     .delete()
