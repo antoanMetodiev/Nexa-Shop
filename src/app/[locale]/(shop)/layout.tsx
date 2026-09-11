@@ -10,12 +10,14 @@ export default function ShopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <CartProvider>
-      <WishlistProvider>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </WishlistProvider>
-    </CartProvider>
+    <SupabaseUserProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </WishlistProvider>
+      </CartProvider>
+    </SupabaseUserProvider>
   );
 }
