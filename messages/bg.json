@@ -338,6 +338,27 @@
     "checkEmailBody": "Изпратихме потвърждение на {email}. Кликни линка в него, за да активираш акаунта си.",
     "genericError": "Нещо се обърка. Опитай отново."
   },
+  "account": {
+    "title": "Профил",
+    "breadcrumb": "Профил",
+    "profileHeading": "Лична информация",
+    "nameLabel": "Име",
+    "phoneLabel": "Телефонен номер",
+    "emailLabel": "Имейл",
+    "changePhoto": "Смени снимката",
+    "avatarInvalidType": "Файлът трябва да е изображение.",
+    "avatarTooLarge": "Изображението трябва да е под 5MB.",
+    "saveButton": "Запази",
+    "saving": "Запазване...",
+    "profileSuccess": "Промените са запазени.",
+    "passwordHeading": "Смяна на парола",
+    "newPasswordLabel": "Нова парола",
+    "confirmPasswordLabel": "Потвърди новата парола",
+    "passwordSuccess": "Паролата е сменена успешно.",
+    "passwordMismatch": "Паролите не съвпадат.",
+    "passwordTooShort": "Паролата трябва да е поне 6 символа.",
+    "genericError": "Нещо се обърка. Опитай отново."
+  },
   "language": {
     "label": "Език"
   }

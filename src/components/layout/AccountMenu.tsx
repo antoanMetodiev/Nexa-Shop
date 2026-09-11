@@ -102,6 +102,13 @@ export function AccountMenu({ user }: { user: User | null }) {
                 </p>
               )}
             </div>
+            <Link
+              href="/account"
+              onClick={() => setOpen(false)}
+              className="block w-full border-b border-navy-100 px-4 py-3 text-left text-sm font-medium text-navy-800 transition-colors hover:bg-navy-50"
+            >
+              {t("account")}
+            </Link>
             <button
               type="button"
               onClick={handleSignOut}
