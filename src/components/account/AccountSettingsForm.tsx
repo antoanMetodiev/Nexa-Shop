@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/browser-client";
@@ -152,11 +151,14 @@ export function AccountSettingsForm({ user }: { user: User }) {
         <div className="flex items-center gap-4">
           <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-navy-200 bg-navy-50 text-lg font-semibold text-navy-500">
             {displayAvatar ? (
-              <Image
+              // Plain <img>, not next/image: the preview can be a local
+              // blob: URL (before saving) which next/image's optimizer
+              // rejects outright (throws — not just a broken image),
+              // taking the whole form down with it.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 src={displayAvatar}
                 alt=""
-                width={64}
-                height={64}
                 className="size-full object-cover"
               />
             ) : (
