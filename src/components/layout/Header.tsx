@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
-import { Heart, Menu, ShoppingBag, X } from "lucide-react";
+import { Heart, LogOut, Menu, ShoppingBag, User as UserIcon, X } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { AccountMenu } from "@/components/layout/AccountMenu";
@@ -14,6 +14,7 @@ import { MAIN_NAV, SITE_NAME } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
 import { useSupabaseUserContext } from "@/lib/supabase/user-context";
+import { useProfile } from "@/lib/profile-context";
 import { createClient } from "@/lib/supabase/browser-client";
 
 function CountBadge({ count }: { count: number }) {
@@ -40,9 +41,19 @@ export function Header() {
   const { totalCount } = useCart();
   const { totalCount: wishlistCount } = useWishlist();
   const user = useSupabaseUserContext();
+  const { profile } = useProfile();
   const router = useRouter();
   const t = useTranslations("header");
   const tNav = useTranslations("nav");
+
+  const mobileUserLabel =
+    profile?.full_name ??
+    (user?.user_metadata?.full_name as string | undefined) ??
+    user?.email ??
+    "";
+
+  const mobileLinkClass =
+    "flex items-center gap-3 py-3 text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950";
 
   async function handleMobileSignOut() {
     const supabase = createClient();
@@ -142,23 +153,58 @@ export function Header() {
                     {tNav(item.key)}
                   </Link>
                 ))}
-                {user ? (
-                  <button
-                    type="button"
-                    onClick={handleMobileSignOut}
-                    className="py-3 text-left text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950"
-                  >
-                    {t("signOut")}
-                  </button>
-                ) : (
+
+                {/* Below `sm` the wishlist / account icons are hidden from the
+                    top bar, so the menu must expose them here. */}
+                <div className="mt-2 flex flex-col border-t border-navy-100 pt-2">
+                  {user && (
+                    <p className="truncate pb-1 pt-2 text-xs text-navy-500">
+                      {mobileUserLabel}
+                    </p>
+                  )}
                   <Link
-                    href="/sign-in"
+                    href="/wishlist"
                     onClick={() => setMenuOpen(false)}
-                    className="py-3 text-sm font-medium text-navy-800 transition-all duration-200 hover:pl-1.5 hover:text-navy-950"
+                    className={mobileLinkClass}
                   >
-                    {t("signIn")}
+                    <Heart className="size-4" />
+                    <span className="flex-1">{t("wishlist")}</span>
+                    {wishlistCount > 0 && (
+                      <span className="rounded-full bg-navy-900 px-2 py-0.5 text-[11px] font-semibold text-white">
+                        {wishlistCount > 9 ? "9+" : wishlistCount}
+                      </span>
+                    )}
                   </Link>
-                )}
+                  {user ? (
+                    <>
+                      <Link
+                        href="/account"
+                        onClick={() => setMenuOpen(false)}
+                        className={mobileLinkClass}
+                      >
+                        <UserIcon className="size-4" />
+                        {t("account")}
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={handleMobileSignOut}
+                        className={`${mobileLinkClass} text-left`}
+                      >
+                        <LogOut className="size-4" />
+                        {t("signOut")}
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      href="/sign-in"
+                      onClick={() => setMenuOpen(false)}
+                      className={mobileLinkClass}
+                    >
+                      <UserIcon className="size-4" />
+                      {t("signIn")}
+                    </Link>
+                  )}
+                </div>
               </div>
             </Container>
           </motion.nav>
